@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FamilyBudget.Infrastructure.Database;
 
-internal class FamilyBudgetDbContext : DbContext
+public class FamilyBudgetDbContext : DbContext
 {
     public DbSet<User> Users { get; set; }
     public DbSet<SharedBudget> SharedBudgets { get; set; }

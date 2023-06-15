@@ -1,3 +1,6 @@
+using FamilyBudget.Api.Controllers.Base;
+using Microsoft.OpenApi.Models;
+
 namespace FamilyBudget.Api;
 
 public static class Extensions
@@ -14,6 +17,8 @@ public static class Extensions
                 .WithOrigins("https://localhost:5173")
         ));
 
+        services.AddSwaggerConfiguration();
+
         return services;
     }
 
@@ -24,6 +29,37 @@ public static class Extensions
             $"Family Budget is running!\nGo to: {app.Urls.Select(x => x).First()}/docs"));
 
         app.UseCors("CorsPolicy");
+
+        app.UseSwaggerConfiguration();
+
+        return app;
+    }
+
+    private static IServiceCollection AddSwaggerConfiguration(this IServiceCollection services)
+    {
+        services.AddSwaggerGen(options =>
+        {
+            foreach (var group in ApiGroups.GetNameValueDictionary())
+                options.SwaggerDoc(group.Value, new OpenApiInfo
+                {
+                    Title = $"{group.Key}",
+                    Version = group.Value
+                });
+        });
+
+        return services;
+    }
+
+    private static WebApplication UseSwaggerConfiguration(this WebApplication app)
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI(options =>
+        {
+            options.RoutePrefix = "docs";
+            options.DocumentTitle = "Family Budget API";
+            foreach (var group in ApiGroups.GetNameValueDictionary())
+                options.SwaggerEndpoint($"/swagger/{group.Value}/swagger.json", $"{group.Key} API");
+        });
 
         return app;
     }

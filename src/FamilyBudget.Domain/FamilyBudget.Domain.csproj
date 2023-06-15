@@ -7,10 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Folder Include="Interfaces\" />
-    </ItemGroup>
-
-    <ItemGroup>
         <ProjectReference Include="..\shared\FamilyBudget.Common\FamilyBudget.Common.csproj" />
     </ItemGroup>
 

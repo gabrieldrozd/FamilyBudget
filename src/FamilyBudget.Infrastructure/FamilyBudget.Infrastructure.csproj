@@ -15,9 +15,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Database\Repositories\" />
+      <Folder Include="Contexts\" />
       <Folder Include="Database\Seeders\" />
-      <Folder Include="Services\" />
     </ItemGroup>
 
 </Project>
