@@ -1,9 +1,0 @@
----
-Database:
-    ConnectionString: Host=localhost;Database=FamilyBudget;Username=postgres;Password=
-Logging:
-    LogLevel:
-        Default: Information,
-        Microsoft.AspNetCore: Warning
-AllowedHosts: *
-

@@ -1,3 +1,4 @@
+using FamilyBudget.Api;
 using FamilyBudget.Application;
 using FamilyBudget.Domain;
 using FamilyBudget.Infrastructure;
@@ -7,24 +8,31 @@ var builder = WebApplication.CreateBuilder(args);
 #region Services
 
 var services = builder.Services;
-
-services.AddCors(options =>
-{
-    options.AddPolicy("CorsPolicy",
-        policy =>
-        {
-            policy
-                .AllowAnyHeader()
-                .AllowAnyMethod()
-                .AllowCredentials()
-                .WithOrigins("https://localhost:5173");
-        });
-});
+var configuration = builder.Configuration;
 
 services
-    .AddInfrastructure()
+    .AddApi()
+    .AddInfrastructure(configuration)
     .AddApplication()
     .AddDomain();
+
+#endregion
+
+#region Application
+
+var application = builder.Build();
+
+application
+    .UseApi()
+    .UseInfrastructure()
+    .UseApplication()
+    .UseDomain();
+
+#endregion
+
+application.Run();
+
+/*
 
 builder.Services.AddControllers();
 
@@ -56,3 +64,4 @@ application.UseCors("CorsPolicy");
 #endregion
 
 application.Run();
+ */

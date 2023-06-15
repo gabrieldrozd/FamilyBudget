@@ -10,4 +10,15 @@
         <ProjectReference Include="..\FamilyBudget.Application\FamilyBudget.Application.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Database\Configurations\" />
+      <Folder Include="Database\Repositories\" />
+      <Folder Include="Database\Seeders\" />
+      <Folder Include="Services\" />
+    </ItemGroup>
+
 </Project>
