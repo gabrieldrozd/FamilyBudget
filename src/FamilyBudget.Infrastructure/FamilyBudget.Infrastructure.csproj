@@ -3,11 +3,11 @@
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
+        <Nullable>disable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\FamilyBudget.Application\FamilyBudget.Application.csproj" />
+        <ProjectReference Include="..\FamilyBudget.Application\FamilyBudget.Application.csproj" />
     </ItemGroup>
 
 </Project>
