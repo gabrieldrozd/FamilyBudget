@@ -1,5 +1,4 @@
-using FamilyBudget.Common.Types;
-using FamilyBudget.Common.Types.General;
+using FamilyBudget.Common.Abstractions;
 
 namespace FamilyBudget.Common.Domain.ValueObjects;
 

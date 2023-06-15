@@ -3,7 +3,7 @@ using FluentValidation.Results;
 
 namespace FamilyBudget.Common.Results;
 
-public struct Result
+public class Result
 {
     public Status Status { get; }
     public bool IsSuccess { get; }

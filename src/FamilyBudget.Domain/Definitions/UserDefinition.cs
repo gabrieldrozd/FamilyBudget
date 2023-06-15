@@ -1,5 +1,3 @@
-using FamilyBudget.Common.Domain.ValueObjects;
-
 namespace FamilyBudget.Domain.Definitions;
 
 public class UserDefinition

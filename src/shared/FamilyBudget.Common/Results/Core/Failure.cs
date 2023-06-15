@@ -1,4 +1,4 @@
-using FamilyBudget.Common.Types.General;
+using FamilyBudget.Common.Abstractions;
 
 namespace FamilyBudget.Common.Results.Core;
 

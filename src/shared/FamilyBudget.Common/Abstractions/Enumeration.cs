@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace FamilyBudget.Common.Types.General;
+namespace FamilyBudget.Common.Abstractions;
 
 public abstract record Enumeration<TEnum>(int Value, string Name)
     where TEnum : Enumeration<TEnum>

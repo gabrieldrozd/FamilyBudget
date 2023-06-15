@@ -1,7 +1,16 @@
+using System.Reflection;
 using FamilyBudget.Api;
 using FamilyBudget.Application;
 using FamilyBudget.Domain;
 using FamilyBudget.Infrastructure;
+
+var assemblies = new List<Assembly>
+{
+    typeof(IApiAssembly).Assembly,
+    typeof(IApplicationAssembly).Assembly,
+    typeof(IDomainAssembly).Assembly,
+    typeof(IInfrastructureAssembly).Assembly,
+};
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +24,8 @@ services
     .AddInfrastructure(configuration)
     .AddApplication()
     .AddDomain();
+
+services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(assemblies.ToArray()));
 
 #endregion
 
