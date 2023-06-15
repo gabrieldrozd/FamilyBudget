@@ -21,6 +21,7 @@ public class BudgetPlan : Entity
 
     public Guid UserId { get; set; }
     public User Creator { get; set; }
+    public ICollection<SharedBudget> SharedBudgets { get; set; }
 
     #endregion
 
@@ -43,6 +44,8 @@ public class BudgetPlan : Entity
         Incomes = new List<Income>();
         Expenses = new List<Expense>();
         UserId = userId;
+
+        SharedBudgets = new List<SharedBudget>();
     }
 
     #endregion

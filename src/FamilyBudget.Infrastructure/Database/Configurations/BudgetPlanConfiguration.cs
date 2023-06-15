@@ -18,7 +18,7 @@ public class BudgetPlanConfiguration : IEntityTypeConfiguration<BudgetPlan>
             .IsRequired();
 
         builder.Property(x => x.Balance)
-            .HasPrecision(5, 2)
+            .HasPrecision(15, 2)
             .IsRequired();
 
         builder.Property(x => x.StartDate)
@@ -37,14 +37,8 @@ public class BudgetPlanConfiguration : IEntityTypeConfiguration<BudgetPlan>
                 .IsRequired();
 
             income.Property(x => x.Amount)
-                .HasPrecision(5, 2)
+                .HasPrecision(15, 2)
                 .IsRequired();
-
-            income
-                .HasOne(x => x.BudgetPlan)
-                .WithMany(x => x.Incomes)
-                .HasForeignKey(x => x.BudgetPlanId)
-                .OnDelete(DeleteBehavior.Cascade);
         });
 
         #endregion
@@ -59,14 +53,8 @@ public class BudgetPlanConfiguration : IEntityTypeConfiguration<BudgetPlan>
                 .IsRequired();
 
             expense.Property(x => x.Amount)
-                .HasPrecision(5, 2)
+                .HasPrecision(15, 2)
                 .IsRequired();
-
-            expense
-                .HasOne(x => x.BudgetPlan)
-                .WithMany(x => x.Expenses)
-                .HasForeignKey(x => x.BudgetPlanId)
-                .OnDelete(DeleteBehavior.Cascade);
         });
 
         #endregion

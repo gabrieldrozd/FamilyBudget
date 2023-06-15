@@ -36,6 +36,9 @@ public class User : Entity
         FirstName = firstName;
         LastName = lastName;
         Role = role;
+
+        BudgetPlans = new List<BudgetPlan>();
+        SharedBudgets = new List<SharedBudget>();
     }
 
     #endregion
