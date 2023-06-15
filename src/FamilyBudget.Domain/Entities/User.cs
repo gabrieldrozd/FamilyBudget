@@ -1,6 +1,7 @@
 using FamilyBudget.Common.Domain.Primitives;
 using FamilyBudget.Common.Domain.ValueObjects;
 using FamilyBudget.Domain.Definitions;
+using FamilyBudget.Domain.Entities.Budget;
 
 namespace FamilyBudget.Domain.Entities;
 
@@ -10,7 +11,6 @@ public class User : Entity
 
     public string PasswordHash { get; set; }
     public string Email { get; set; }
-    public string PhoneNumber { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public Role Role { get; set; }
@@ -30,10 +30,9 @@ public class User : Entity
     {
     }
 
-    private User(Guid externalId, string email, string phoneNumber, string firstName, string lastName, Role role) : this(externalId)
+    private User(Guid externalId, string email, string firstName, string lastName, Role role) : this(externalId)
     {
         Email = email;
-        PhoneNumber = phoneNumber;
         FirstName = firstName;
         LastName = lastName;
         Role = role;
@@ -46,7 +45,7 @@ public class User : Entity
     public static User Create(Guid userId, UserDefinition definition)
     {
         var role = Role.FromName(definition.Role);
-        return new User(userId, definition.Email, definition.PhoneNumber, definition.FirstName, definition.LastName, role);
+        return new User(userId, definition.Email, definition.FirstName, definition.LastName, role);
     }
 
     #endregion

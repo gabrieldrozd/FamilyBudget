@@ -1,5 +1,3 @@
-using FamilyBudget.Infrastructure.Middleware;
-
 namespace FamilyBudget.Api;
 
 public static class Extensions

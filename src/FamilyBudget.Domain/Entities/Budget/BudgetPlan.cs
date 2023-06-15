@@ -1,7 +1,8 @@
 using FamilyBudget.Common.Domain.Primitives;
 using FamilyBudget.Domain.Definitions;
+using FamilyBudget.Domain.Entities.MoneyFlow;
 
-namespace FamilyBudget.Domain.Entities;
+namespace FamilyBudget.Domain.Entities.Budget;
 
 public class BudgetPlan : Entity
 {
@@ -61,22 +62,10 @@ public class BudgetPlan : Entity
         Incomes.Add(income);
     }
 
-    public void AddIncomes(IEnumerable<Income> incomes)
-    {
-        foreach (var income in incomes)
-            AddIncome(income);
-    }
-
     public void AddExpense(Expense expense)
     {
         if (Expenses.Contains(expense)) return;
         Expenses.Add(expense);
-    }
-
-    public void AddExpenses(IEnumerable<Expense> expenses)
-    {
-        foreach (var expense in expenses)
-            AddExpense(expense);
     }
 
     #endregion

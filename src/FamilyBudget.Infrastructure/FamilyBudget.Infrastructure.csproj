@@ -15,7 +15,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Database\Configurations\" />
       <Folder Include="Database\Repositories\" />
       <Folder Include="Database\Seeders\" />
       <Folder Include="Services\" />
