@@ -14,7 +14,7 @@ public static class Extensions
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials()
-                .WithOrigins("https://localhost:5173")
+                .WithOrigins("https://localhost:3000")
         ));
 
         services.AddSwaggerConfiguration();
