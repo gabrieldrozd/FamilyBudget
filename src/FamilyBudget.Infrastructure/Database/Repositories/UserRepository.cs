@@ -20,10 +20,8 @@ internal sealed class UserRepository : BaseRepository<User>, IUserRepository
     {
         var result = await _users
             .AddPagination(pagination)
-            .Include(x => x.BudgetPlans).ThenInclude(y => y.Incomes)
-            .Include(x => x.BudgetPlans).ThenInclude(y => y.Expenses)
-            .Include(x => x.SharedBudgets).ThenInclude(y => y.BudgetPlan).ThenInclude(z => z.Incomes)
-            .Include(x => x.SharedBudgets).ThenInclude(y => y.BudgetPlan).ThenInclude(z => z.Expenses)
+            .Include(x => x.BudgetPlans)
+            .Include(x => x.SharedBudgets)
             .AsSplitQuery()
             .AsNoTracking()
             .ToListAsync();

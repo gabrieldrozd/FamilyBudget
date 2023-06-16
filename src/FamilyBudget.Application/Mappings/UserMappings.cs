@@ -30,6 +30,18 @@ public static class UserMappings
             BudgetPlans = model.BudgetPlans.MapTo(BugdetPlanMappings.ToDto),
             SharedBudgets = model.SharedBudgets.MapTo(SharedBudgetMappings.ToDto)
         };
+
+    public static UserBaseDto ToBaseDto(User model)
+        => new()
+        {
+            ExternalId = model.ExternalId,
+            Email = model.Email,
+            FirstName = model.FirstName,
+            LastName = model.LastName,
+            Role = model.Role.Name,
+            BudgetPlans = model.BudgetPlans.Count,
+            SharedBudgets = model.SharedBudgets.Count
+        };
 }
 
 public static class SharedBudgetMappings

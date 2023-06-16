@@ -9,16 +9,16 @@ using FamilyBudget.Domain.Interfaces.Repositories;
 
 namespace FamilyBudget.Infrastructure.Queries.Users;
 
-internal sealed class BrowseUsersHandler : IQueryHandler<BrowseUsers, PaginatedList<UserDto>>
+internal sealed class BrowseUsersHandler : IQueryHandler<BrowseUsers, PaginatedList<UserBaseDto>>
 {
     private readonly IUserRepository _userRepository;
 
     public BrowseUsersHandler(IUserRepository userRepository) => _userRepository = userRepository;
 
-    public async Task<Result<PaginatedList<UserDto>>> Handle(BrowseUsers request, CancellationToken cancellationToken)
+    public async Task<Result<PaginatedList<UserBaseDto>>> Handle(BrowseUsers request, CancellationToken cancellationToken)
     {
         var users = await _userRepository.BrowseAsync(request.Pagination);
-        var mapped = users.MapTo(UserMappings.ToDto);
+        var mapped = users.MapTo(UserMappings.ToBaseDto);
 
         return Result.Success(mapped);
     }

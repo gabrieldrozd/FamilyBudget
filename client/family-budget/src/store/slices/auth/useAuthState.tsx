@@ -33,7 +33,7 @@ export const useAuthState = () => {
 
         const authSelectors = {
             token: () => state.token,
-            isInRole: (givenRole: Role) => state.accessToken.role === givenRole,
+            isInRole: (givenRole: Role | string) => state.accessToken.role === givenRole,
             isAuthenticated: () => state.accessToken !== null,
             accessToken: () => state.accessToken
         };

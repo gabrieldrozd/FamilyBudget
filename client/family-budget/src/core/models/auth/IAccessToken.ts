@@ -1,4 +1,4 @@
-export type Role = "Owner" | "Member" | null;
+export type Role = "Owner" | "Member";
 
 export interface IAccessToken {
     token: string;

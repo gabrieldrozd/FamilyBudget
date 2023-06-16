@@ -18,7 +18,7 @@ const navItems = [
 ];
 
 export const AppNavbar = () => {
-    const {actions: {logout}} = useAuthState();
+    const {actions: {logout}, selectors: {isInRole}} = useAuthState();
     const location = useLocation();
 
     return (
@@ -31,43 +31,7 @@ export const AppNavbar = () => {
                     </Flex>
                     <Flex style={{height: "100%"}}>
                         {navItems.map((item) => {
-                            if (item.role && item.role !== "Owner") {
-                                // TODO: Conditionally render Users nav item based on user role
-                                // only Owner can see all users and manage them (Delete, Update)
-                                // Member can see other users but only when sharing budget
-
-                                // TODO: Conditionally render Users nav item based on user role
-                                // only Owner can see all users and manage them (Delete, Update)
-                                // Member can see other users but only when sharing budget
-
-                                // TODO: Conditionally render Users nav item based on user role
-                                // only Owner can see all users and manage them (Delete, Update)
-                                // Member can see other users but only when sharing budget
-
-                                // TODO: Conditionally render Users nav item based on user role
-                                // only Owner can see all users and manage them (Delete, Update)
-                                // Member can see other users but only when sharing budget
-
-                                // TODO: Conditionally render Users nav item based on user role
-                                // only Owner can see all users and manage them (Delete, Update)
-                                // Member can see other users but only when sharing budget
-                                return (
-                                    <Paper key={item.path} py="sm" px="xs" my="xs" style={{borderRadius: 4}}>
-                                        <Link
-                                            to={item.path}
-                                            style={{
-                                                display: "inline-block",
-                                                textDecoration: "none",
-                                                padding: "8px",
-                                                borderRadius: 4,
-                                                backgroundColor: location.pathname === item.path ? colors.indigo200 : "transparent",
-                                            }}
-                                        >
-                                            {item.title}
-                                        </Link>
-                                    </Paper>
-                                );
-                            } else {
+                            if (!item.role || isInRole(item.role)) {
                                 return (
                                     <Paper key={item.path} py="sm" px="xs" my="xs" style={{borderRadius: 4}}>
                                         <Link
@@ -85,6 +49,7 @@ export const AppNavbar = () => {
                                     </Paper>
                                 );
                             }
+                            return null;
                         })}
                         <Paper py="sm" my="xs" style={{borderRadius: 4}}>
                             <UnstyledButton onClick={logout} style={{textDecoration: "none", padding: "8px", display: "inline-block"}}>
