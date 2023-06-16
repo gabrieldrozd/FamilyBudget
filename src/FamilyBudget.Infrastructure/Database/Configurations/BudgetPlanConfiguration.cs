@@ -33,6 +33,9 @@ public class BudgetPlanConfiguration : IEntityTypeConfiguration<BudgetPlan>
         {
             income.HasKey(x => x.ExternalId);
 
+            income.Property(x => x.Name)
+                .IsRequired();
+
             income.Property(x => x.Date)
                 .IsRequired();
 
@@ -48,6 +51,9 @@ public class BudgetPlanConfiguration : IEntityTypeConfiguration<BudgetPlan>
         builder.OwnsMany(x => x.Expenses, expense =>
         {
             expense.HasKey(x => x.ExternalId);
+
+            expense.Property(x => x.Name)
+                .IsRequired();
 
             expense.Property(x => x.Date)
                 .IsRequired();

@@ -1,6 +1,5 @@
 using FamilyBudget.Application.DTO;
 using FamilyBudget.Common.Abstractions.Communication;
-using MediatR;
 
 namespace FamilyBudget.Application.Features.Users.Commands;
 

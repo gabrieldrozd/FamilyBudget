@@ -45,6 +45,32 @@ public static class Extensions
                     Title = $"{group.Key}",
                     Version = group.Value
                 });
+
+            var securitySchema = new OpenApiSecurityScheme
+            {
+                Description = "JWT Authorization Bearer Scheme",
+                Name = "Authorization",
+                In = ParameterLocation.Header,
+                Type = SecuritySchemeType.Http,
+                Scheme = "bearer",
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            };
+
+            options.AddSecurityDefinition("Bearer", securitySchema);
+
+            var securityRequirement = new OpenApiSecurityRequirement
+            {
+                {
+                    securitySchema,
+                    new[] { "Bearer" }
+                }
+            };
+
+            options.AddSecurityRequirement(securityRequirement);
         });
 
         return services;

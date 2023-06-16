@@ -1,7 +1,6 @@
 using FamilyBudget.Common.Results.Core;
-using Wisse.Common.Models.Envelope;
 
-namespace FamilyBudget.Common.Api.Response;
+namespace FamilyBudget.Common.Api.Envelope;
 
 /// <summary>
 /// Response envelope for request that returns no data

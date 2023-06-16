@@ -27,6 +27,6 @@ internal sealed class LoginUserHandler : ICommandHandler<LoginUser, AccessToken>
 
         return loginResult.IsSuccess
             ? loginResult
-            : Result.Unauthorized<AccessToken>();
+            : Result.Failure<AccessToken>(Failure.InvalidCredentials);
     }
 }

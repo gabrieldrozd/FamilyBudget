@@ -8,17 +8,24 @@ using FamilyBudget.Domain.Entities;
 using FamilyBudget.Domain.Interfaces.Auth;
 using FamilyBudget.Domain.Interfaces.Repositories;
 using FamilyBudget.Domain.Interfaces.Repositories.Base;
+using FamilyBudget.Domain.Interfaces.Services;
 
 namespace FamilyBudget.Application.Features.Users.Commands.Handlers;
 
 internal sealed class RegisterUserHandler : ICommandHandler<RegisterUser, UserDto>
 {
+    private readonly IIdentityService _identityService;
     private readonly IUserRepository _userRepository;
     private readonly IUserContext _userContext;
     private readonly IUnitOfWork _unitOfWork;
 
-    public RegisterUserHandler(IUserRepository userRepository, IUserContext userContext, IUnitOfWork unitOfWork)
+    public RegisterUserHandler(
+        IIdentityService identityService,
+        IUserRepository userRepository,
+        IUserContext userContext,
+        IUnitOfWork unitOfWork)
     {
+        _identityService = identityService;
         _userRepository = userRepository;
         _userContext = userContext;
         _unitOfWork = unitOfWork;
@@ -34,7 +41,9 @@ internal sealed class RegisterUserHandler : ICommandHandler<RegisterUser, UserDt
 
         var userId = Guid.NewGuid();
         var definition = UserMappings.ToDefinition(request);
+
         var user = User.Create(userId, definition);
+        _identityService.GenerateHashedPassword(user);
 
         _userRepository.Insert(user);
         var result = await _unitOfWork.CommitAsync();

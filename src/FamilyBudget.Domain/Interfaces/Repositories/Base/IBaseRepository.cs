@@ -10,6 +10,10 @@ public interface IBaseRepository<TEntity>
 
     Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> criteria);
 
+    Task<int> TotalCountAsync();
+
+    Task<int> FilterTotalCountAsync(Expression<Func<TEntity, bool>> predicate);
+
     void Insert(TEntity entity);
 
     void InsertRange(IEnumerable<TEntity> entities);

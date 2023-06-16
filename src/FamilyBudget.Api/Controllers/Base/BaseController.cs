@@ -1,4 +1,4 @@
-using FamilyBudget.Common.Api.Response;
+using FamilyBudget.Common.Api.Envelope;
 using FamilyBudget.Common.Results;
 using FamilyBudget.Common.Results.Core;
 using MediatR;

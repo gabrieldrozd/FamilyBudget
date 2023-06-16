@@ -35,6 +35,15 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity>
         return result;
     }
 
+    public Task<int> TotalCountAsync()
+        => _context.Set<TEntity>()
+            .CountAsync();
+
+    public Task<int> FilterTotalCountAsync(Expression<Func<TEntity, bool>> predicate)
+        => _context.Set<TEntity>()
+            .Where(predicate)
+            .CountAsync();
+
     public void Insert(TEntity entity)
         => _context.Set<TEntity>().Add(entity);
 

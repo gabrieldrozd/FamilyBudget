@@ -1,4 +1,4 @@
-namespace Wisse.Common.Models.Envelope;
+namespace FamilyBudget.Common.Api.Envelope;
 
 /// <summary>
 /// Empty data
