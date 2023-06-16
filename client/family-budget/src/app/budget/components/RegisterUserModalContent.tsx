@@ -3,7 +3,7 @@ import {Notify} from "@core/services/Notify";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {Button, Divider, Select, TextInput} from "@mantine/core";
 import type {SubmitErrorHandler, SubmitHandler} from "react-hook-form";
-import {useForm} from "react-hook-form";
+import {Controller, useForm} from "react-hook-form";
 import {z} from "zod";
 
 interface RegisterUserFormModel {
@@ -30,7 +30,7 @@ export const RegisterUserModalContent = ({closeModal}: Props) => {
             email: "",
             firstName: "",
             lastName: "",
-            role: "Member",
+            role: "",
         },
         resolver: zodResolver(formSchema),
     });
@@ -46,7 +46,7 @@ export const RegisterUserModalContent = ({closeModal}: Props) => {
             }
         });
     };
-    const onInvalidSubmit: SubmitErrorHandler<RegisterUserFormModel> = () => Notify.info("Fill in all fields");
+    const onInvalidSubmit: SubmitErrorHandler<RegisterUserFormModel> = () => Notify.warning("Fill in all fields or check for errors");
     const onSubmit = form.handleSubmit(onValidSubmit, (errors) => onInvalidSubmit(errors));
 
     return (
@@ -61,6 +61,7 @@ export const RegisterUserModalContent = ({closeModal}: Props) => {
                 placeholder="Enter email"
                 required
                 {...form.register("email")}
+                error={form.formState.errors.email?.message}
             />
 
             <Divider color="white.0" my={20} />
@@ -75,6 +76,7 @@ export const RegisterUserModalContent = ({closeModal}: Props) => {
                 placeholder="Enter first name"
                 required
                 {...form.register("firstName")}
+                error={form.formState.errors.firstName?.message}
             />
 
             <Divider color="white.0" my={20} />
@@ -89,17 +91,27 @@ export const RegisterUserModalContent = ({closeModal}: Props) => {
                 placeholder="Enter last name"
                 required
                 {...form.register("lastName")}
+                error={form.formState.errors.lastName?.message}
             />
 
             <Divider color="white.0" my={20} />
 
-            <Select
-                label="User role"
-                placeholder="Pick one"
-                data={[
-                    {value: "Member", label: "Member"},
-                    {value: "Owner", label: "Owner"},
-                ]}
+            <Controller
+                control={form.control}
+                name="role"
+                render={({field}) => (
+                    <Select
+                        label="User role"
+                        placeholder="Pick one"
+                        data={[
+                            {value: "Member", label: "Member"},
+                            {value: "Owner", label: "Owner"},
+                        ]}
+                        required
+                        {...field}
+                        error={form.formState.errors.role?.message}
+                    />
+                )}
             />
 
             <Divider variant="solid" my={20} color="gray.3" w="100%" />

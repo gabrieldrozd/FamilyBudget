@@ -3,13 +3,14 @@ import {
     Flex,
     Group,
     Header,
-    Paper,
-    Text,
+    Paper, Space,
+    Text, Title,
     UnstyledButton,
 } from "@mantine/core";
 import {colors} from "@shared/colors";
 import {useAuthState} from "@store/slices/auth/useAuthState";
 import {Link, useLocation} from "react-router-dom";
+import {IconCircleOff, IconX} from "@tabler/icons-react";
 
 const navItems = [
     {title: "Budget", path: "/", role: ""},
@@ -24,12 +25,17 @@ export const AppNavbar = () => {
     return (
         <Header height={80} mb={20}>
             <Container size="md">
-                <Group position="apart" h="100%">
+                <Flex
+                    direction="row"
+                    justify="space-between"
+                    align="center"
+                    h="100%"
+                >
                     <Flex h="100%" direction="column" justify="center" align="center">
                         <Text size="xl" weight={700} color="indigo.7">Family Budget</Text>
                         <Text size="xl" weight={700}>Manager</Text>
                     </Flex>
-                    <Flex style={{height: "100%"}}>
+                    <Flex h="100%">
                         {navItems.map((item) => {
                             if (!item.role || isInRole(item.role)) {
                                 return (
@@ -53,13 +59,27 @@ export const AppNavbar = () => {
                             }
                             return null;
                         })}
+                    </Flex>
+                    <Flex h="100%">
                         <Paper py="sm" my="xs" style={{borderRadius: 4}}>
-                            <UnstyledButton onClick={logout} style={{textDecoration: "none", padding: "8px", display: "inline-block"}}>
-                                Logout
+                            <UnstyledButton
+                                onClick={logout}
+                                style={{
+                                    fontWeight: 700,
+                                    display: "inline-block",
+                                    textDecoration: "none",
+                                    padding: "8px",
+                                }}
+                            >
+                                <Flex>
+                                    <Text>Logout</Text>
+                                    <Space w={5} />
+                                    <IconX size={22} />
+                                </Flex>
                             </UnstyledButton>
                         </Paper>
                     </Flex>
-                </Group>
+                </Flex>
             </Container>
         </Header>
     );
