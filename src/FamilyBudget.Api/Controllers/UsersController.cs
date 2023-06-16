@@ -25,4 +25,12 @@ public class UsersController : BaseController
         var result = await Sender.Send(command, cancellationToken);
         return BuildEnvelope(result);
     }
+
+    [HttpDelete("{externalId:guid}/delete")]
+    public async Task<IActionResult> Delete(Guid externalId, CancellationToken cancellationToken = default)
+    {
+        var command = new DeleteUser(externalId);
+        var result = await Sender.Send(command, cancellationToken);
+        return BuildEnvelope(result);
+    }
 }

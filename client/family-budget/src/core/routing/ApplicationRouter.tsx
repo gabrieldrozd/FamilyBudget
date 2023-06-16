@@ -3,6 +3,8 @@ import {NotFoundPage} from "@app/_common/NotFoundPage";
 import {StartPage} from "@app/_start/StartPage";
 import {BudgetPlansPage} from "@app/budget/BudgetPlansPage";
 import {SharedBudgetsPage} from "@app/budget/SharedBudgetsPage";
+import {UsersPage} from "@app/budget/UsersPage";
+import {PaginationContextProvider} from "@core/context/PaginationContextProvider";
 import {AuthorizedRoute} from "@core/routing/components/AuthorizedRoute";
 import {createBrowserRouter, createRoutesFromElements, Route} from "react-router-dom";
 
@@ -23,7 +25,9 @@ export const ApplicationRouter = createBrowserRouter(
                 <Route
                     path="users"
                     element={
-                        <div>TODO: Add users page</div>
+                        <PaginationContextProvider>
+                            <UsersPage />
+                        </PaginationContextProvider>
                     }
                 />
             </Route>

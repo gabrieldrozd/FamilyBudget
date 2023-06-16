@@ -12,7 +12,7 @@ using FamilyBudget.Domain.Interfaces.Services;
 
 namespace FamilyBudget.Application.Features.Users.Commands.Handlers;
 
-internal sealed class RegisterUserHandler : ICommandHandler<RegisterUser, UserDto>
+internal sealed class RegisterUserHandler : ICommandHandler<RegisterUser, UserBaseDto>
 {
     private readonly IIdentityService _identityService;
     private readonly IUserRepository _userRepository;
@@ -31,13 +31,13 @@ internal sealed class RegisterUserHandler : ICommandHandler<RegisterUser, UserDt
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<Result<UserDto>> Handle(RegisterUser request, CancellationToken cancellationToken)
+    public async Task<Result<UserBaseDto>> Handle(RegisterUser request, CancellationToken cancellationToken)
     {
         var hasPermission = _userContext.Role == Role.Owner;
-        if (!hasPermission) return Result<UserDto>.Unauthorized();
+        if (!hasPermission) return Result<UserBaseDto>.Unauthorized();
 
         var doesUserExist = await _userRepository.ExistsAsync(x => x.Email == request.Email);
-        if (doesUserExist) return Result<UserDto>.Failure(Failure.EmailInUse);
+        if (doesUserExist) return Result<UserBaseDto>.Failure(Failure.EmailInUse);
 
         var userId = Guid.NewGuid();
         var definition = UserMappings.ToDefinition(request);
@@ -49,7 +49,7 @@ internal sealed class RegisterUserHandler : ICommandHandler<RegisterUser, UserDt
         var result = await _unitOfWork.CommitAsync();
 
         return result.IsSuccess
-            ? Result<UserDto>.Success(UserMappings.ToDto(user))
-            : Result<UserDto>.DatabaseFailure();
+            ? Result<UserBaseDto>.Success(UserMappings.ToBaseDto(user))
+            : Result<UserBaseDto>.DatabaseFailure();
     }
 }

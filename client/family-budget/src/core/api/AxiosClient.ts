@@ -1,8 +1,8 @@
 import type {AxiosError, AxiosResponse} from "axios";
 import axios from "axios";
-import {DataEnvelope, Envelope} from "@core/models/api/dataEnvelope";
+import {DataEnvelope, Envelope} from "@core/models/dataEnvelope";
 import {ApplicationRouter} from "@core/routing/ApplicationRouter";
-import {IPaginatedList, IPaginationRequest} from "@core/models/api/pagination";
+import {IPaginatedList, IPaginationRequest} from "@core/models/pagination";
 import {Notify} from "@core/services/Notify";
 
 const sleep = (delay: number) => {
@@ -93,6 +93,11 @@ export class AxiosClient {
     async put<T>(url: string, body: {}) {
         console.log(`put ${url}`, url, body);
         return await axiosClient.put<DataEnvelope<T>>(url, body).then(getDataEnvelope);
+    }
+
+    async delete<T>(url: string) {
+        console.log(`delete ${url}`, url);
+        return await axiosClient.delete<DataEnvelope<T>>(url).then(getDataEnvelope);
     }
 }
 

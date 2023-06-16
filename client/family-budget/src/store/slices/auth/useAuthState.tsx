@@ -1,5 +1,5 @@
 import {useAppContext} from "@core/context/ApplicationContext";
-import type {IAccessToken, Role} from "@core/models/auth/IAccessToken";
+import type {IAccessToken, Role} from "@core/models/auth";
 import {Notify} from "@core/services/Notify";
 import {authSlice} from "@store/slices/auth/authSlice";
 import type {ActionDispatch, RootState} from "@store/store";

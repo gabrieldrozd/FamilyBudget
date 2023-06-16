@@ -1,7 +1,7 @@
 import {AxiosClient} from "@core/api/AxiosClient";
 import {useAppContext} from "@core/context/ApplicationContext";
-import type {DataEnvelope} from "@core/models/api/dataEnvelope";
-import type {IAccessToken} from "@core/models/auth/IAccessToken";
+import type {DataEnvelope} from "@core/models/dataEnvelope";
+import type {IAccessToken} from "@core/models/auth";
 import {useAuthState} from "@store/slices/auth/useAuthState";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 

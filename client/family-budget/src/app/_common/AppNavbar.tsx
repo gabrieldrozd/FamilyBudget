@@ -41,7 +41,9 @@ export const AppNavbar = () => {
                                                 textDecoration: "none",
                                                 padding: "8px",
                                                 borderRadius: 4,
+                                                color: "black",
                                                 backgroundColor: location.pathname === item.path ? colors.indigo200 : "transparent",
+                                                fontWeight: location.pathname === item.path ? 700 : 400,
                                             }}
                                         >
                                             {item.title}

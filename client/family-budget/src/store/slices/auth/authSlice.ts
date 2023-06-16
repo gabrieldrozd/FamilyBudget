@@ -1,4 +1,4 @@
-import type {IAccessToken} from "@core/models/auth/IAccessToken";
+import type {IAccessToken} from "@core/models/auth";
 import type {PayloadAction} from "@reduxjs/toolkit";
 import {createSlice} from "@reduxjs/toolkit";
 

@@ -1,4 +1,4 @@
-import type {IPaginationRequest} from "@core/models/api/pagination";
+import type {IPaginationRequest} from "@core/models/pagination";
 import type {ReactNode} from "react";
 import {createContext, useContext, useMemo, useState} from "react";
 
