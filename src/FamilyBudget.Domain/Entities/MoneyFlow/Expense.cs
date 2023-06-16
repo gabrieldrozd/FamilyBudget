@@ -7,6 +7,7 @@ public class Expense : Entity
 {
     #region Properties
 
+    public string Name { get; set; }
     public DateTime Date { get; set; }
     public decimal Amount { get; set; }
 
@@ -28,8 +29,9 @@ public class Expense : Entity
     {
     }
 
-    private Expense(Guid externalId, DateTime date, decimal amount, Guid budgetPlanId) : this(externalId)
+    private Expense(Guid externalId, string name, DateTime date, decimal amount, Guid budgetPlanId) : this(externalId)
     {
+        Name = name;
         Date = date;
         Amount = amount;
         BudgetPlanId = budgetPlanId;
@@ -39,8 +41,8 @@ public class Expense : Entity
 
     #region Static Methods
 
-    public static Expense Create(Guid expenseId, DateTime date, decimal amount, Guid budgetPlanId)
-        => new(expenseId, date, amount, budgetPlanId);
+    public static Expense Create(Guid expenseId, string name, DateTime date, decimal amount, Guid budgetPlanId)
+        => new(expenseId, name, date, amount, budgetPlanId);
 
     #endregion
 }

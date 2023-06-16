@@ -7,6 +7,7 @@ public class Income : Entity
 {
     #region Properties
 
+    public string Name { get; set; }
     public DateTime Date { get; set; }
     public decimal Amount { get; set; }
 
@@ -28,8 +29,9 @@ public class Income : Entity
     {
     }
 
-    private Income(Guid externalId, DateTime date, decimal amount, Guid budgetPlanId) : this(externalId)
+    private Income(Guid externalId, string name, DateTime date, decimal amount, Guid budgetPlanId) : this(externalId)
     {
+        Name = name;
         Date = date;
         Amount = amount;
         BudgetPlanId = budgetPlanId;
@@ -39,8 +41,8 @@ public class Income : Entity
 
     #region Static Methods
 
-    public static Income Create(Guid incomeId, DateTime date, decimal amount, Guid budgetPlanId)
-        => new(incomeId, date, amount, budgetPlanId);
+    public static Income Create(Guid incomeId, string name, DateTime date, decimal amount, Guid budgetPlanId)
+        => new(incomeId, name, date, amount, budgetPlanId);
 
     #endregion
 }

@@ -9,7 +9,8 @@ namespace FamilyBudget.Infrastructure.Auth;
 
 internal static class Extensions
 {
-    private const string SectionName = "Auth";
+    private const string OptionsSectionName = "Auth";
+    private const string DefaultsSectionName = "AuthDefaults";
 
     public static IServiceCollection AddAuth(this IServiceCollection services)
     {
@@ -17,8 +18,11 @@ internal static class Extensions
         services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
         services.AddTransient(sp => sp.GetRequiredService<IContextFactory>().Create());
 
-        var options = services.GetOptions<AuthOptions>(SectionName);
-        services.AddSingleton(options);
+        var authOptions = services.GetOptions<AuthOptions>(OptionsSectionName);
+        services.AddSingleton(authOptions);
+
+        var authDefaults = services.GetOptions<AuthDefaults>(DefaultsSectionName);
+        services.AddSingleton(authDefaults);
 
         services
             .AddAuthentication(opt =>
@@ -35,9 +39,9 @@ internal static class Extensions
                     ValidateAudience = false,
                     ValidateIssuerSigningKey = true,
                     ValidateLifetime = true,
-                    ValidIssuer = options.Issuer,
-                    ValidAudience = options.Audience,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.IssuerSigningKey)),
+                    ValidIssuer = authOptions.Issuer,
+                    ValidAudience = authOptions.Audience,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authOptions.IssuerSigningKey)),
                 };
             });
 

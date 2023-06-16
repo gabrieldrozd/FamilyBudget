@@ -6,6 +6,8 @@ namespace FamilyBudget.Domain.Interfaces.Repositories.Base;
 public interface IBaseRepository<TEntity>
     where TEntity : Entity
 {
+    Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> criteria);
+
     Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> criteria);
 
     void Insert(TEntity entity);

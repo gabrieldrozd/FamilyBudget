@@ -15,6 +15,16 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity>
         _context = context;
     }
 
+    public async Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> criteria)
+    {
+        var result = await _context
+            .Set<TEntity>()
+            .AsNoTracking()
+            .AnyAsync(criteria);
+
+        return result;
+    }
+
     public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> criteria)
     {
         var result = await _context
