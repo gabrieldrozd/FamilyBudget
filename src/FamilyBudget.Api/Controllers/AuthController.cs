@@ -1,6 +1,7 @@
 using FamilyBudget.Api.Controllers.Base;
 using FamilyBudget.Application.Features.Auth.Commands;
 using FamilyBudget.Application.Features.Auth.Queries;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FamilyBudget.Api.Controllers;
@@ -18,6 +19,7 @@ public class AuthController : BaseController
         return BuildEnvelope(result);
     }
 
+    [AllowAnonymous]
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginUser command, CancellationToken cancellationToken = default)
     {
