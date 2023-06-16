@@ -1,12 +1,14 @@
+import type {IBudgetPlan} from "@core/models/budgetPlan";
+import type {ISharedBudget} from "@core/models/sharedBudget";
+
 export interface IUser {
     externalId: string;
     email: string;
     firstName: string;
     lastName: string;
     role: string;
-    // Todo: Add budgetPlans and sharedBudgets
-    // budgetPlans: IBudgetPlan[];
-    // sharedBudgets: ISharedBudget[];
+    budgetPlans: IBudgetPlan[];
+    sharedBudgets: ISharedBudget[];
 }
 
 export interface IUserBase {

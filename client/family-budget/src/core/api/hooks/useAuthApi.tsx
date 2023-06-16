@@ -6,7 +6,7 @@ import {useAuthState} from "@store/slices/auth/useAuthState";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 
 const client = AxiosClient.initialize();
-const authUrlSegment = "Auth";
+const authUrlSegment = "auth";
 const key = "auth";
 
 export const useAuthApi = () => {
@@ -38,7 +38,6 @@ export const useAuthApi = () => {
                     email: credentials.email,
                     password: credentials.password,
                 });
-                console.log(accessToken);
                 authState.actions.login(accessToken.data);
                 return accessToken;
             } catch (ex) {

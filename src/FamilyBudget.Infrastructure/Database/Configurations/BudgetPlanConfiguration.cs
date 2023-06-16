@@ -17,15 +17,13 @@ public class BudgetPlanConfiguration : IEntityTypeConfiguration<BudgetPlan>
         builder.Property(x => x.Description)
             .IsRequired();
 
-        builder.Property(x => x.Balance)
-            .HasPrecision(15, 2)
-            .IsRequired();
-
         builder.Property(x => x.StartDate)
             .IsRequired();
 
         builder.Property(x => x.EndDate)
             .IsRequired();
+
+        builder.Ignore(x => x.Balance);
 
         #region Incomes
 

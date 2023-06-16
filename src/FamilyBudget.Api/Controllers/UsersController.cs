@@ -9,6 +9,7 @@ namespace FamilyBudget.Api.Controllers;
 [Tags(ApiSettings.Users)]
 [Area(ApiSettings.Users)]
 [ApiExplorerSettings(GroupName = ApiGroups.Users)]
+[Route("api/users")]
 public class UsersController : BaseController
 {
     [HttpPut("browse")]

@@ -17,7 +17,7 @@ const formSchema = z.object({
     email: z.string().email(),
     firstName: z.string().min(2),
     lastName: z.string().min(2),
-    role: z.enum(["Member", "Admin"]),
+    role: z.enum(["Member", "Owner"]),
 });
 
 interface Props {

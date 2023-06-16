@@ -20,7 +20,14 @@ export const ApplicationRouter = createBrowserRouter(
                     </AuthorizedRoute>
                 }
             >
-                <Route index element={<BudgetPlansPage />} />
+                <Route
+                    index
+                    element={
+                        <PaginationContextProvider>
+                            <BudgetPlansPage />
+                        </PaginationContextProvider>
+                    }
+                />
                 <Route path="shared" element={<SharedBudgetsPage />} />
                 <Route
                     path="users"

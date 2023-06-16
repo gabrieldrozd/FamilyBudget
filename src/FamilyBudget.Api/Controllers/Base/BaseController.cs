@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace FamilyBudget.Api.Controllers.Base;
 
 [ApiController]
-[Route("api/[controller]")]
 public abstract class BaseController : ControllerBase
 {
     private ISender _sender;

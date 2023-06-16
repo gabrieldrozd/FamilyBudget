@@ -10,9 +10,19 @@ public class BudgetPlan : Entity
 
     public string Name { get; set; }
     public string Description { get; set; }
-    public decimal Balance { get; set; }
+
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
+
+    public decimal Balance
+    {
+        get
+        {
+            var totalIncome = Incomes?.Sum(i => i.Amount) ?? 0m;
+            var totalExpense = Expenses?.Sum(e => e.Amount) ?? 0m;
+            return totalIncome - totalExpense;
+        }
+    }
 
     #region Relationships
 
@@ -33,12 +43,11 @@ public class BudgetPlan : Entity
     {
     }
 
-    private BudgetPlan(Guid externalId, string name, string description, decimal balance, DateTime startDate, DateTime endDate, Guid userId)
+    private BudgetPlan(Guid externalId, string name, string description, DateTime startDate, DateTime endDate, Guid userId)
         : this(externalId)
     {
         Name = name;
         Description = description;
-        Balance = balance;
         StartDate = startDate;
         EndDate = endDate;
         Incomes = new List<Income>();
@@ -53,7 +62,7 @@ public class BudgetPlan : Entity
     #region Static Methods
 
     public static BudgetPlan Create(Guid budgetPlanId, BudgetPlanDefinition definition, Guid userId)
-        => new(budgetPlanId, definition.Name, definition.Description, definition.Balance, definition.StartDate, definition.EndDate, userId);
+        => new(budgetPlanId, definition.Name, definition.Description, definition.StartDate, definition.EndDate, userId);
 
     #endregion
 

@@ -9,6 +9,7 @@ namespace FamilyBudget.Api.Controllers;
 [Tags(ApiSettings.Auth)]
 [Area(ApiSettings.Auth)]
 [ApiExplorerSettings(GroupName = ApiGroups.Users)]
+[Route("api/auth")]
 public class AuthController : BaseController
 {
     [HttpGet]

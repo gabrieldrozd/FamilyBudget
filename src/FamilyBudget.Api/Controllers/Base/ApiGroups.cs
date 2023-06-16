@@ -3,6 +3,7 @@ namespace FamilyBudget.Api.Controllers.Base;
 public static class ApiGroups
 {
     public const string Users = "users";
+    public const string Financial = "financial";
 
     public static IDictionary<string, string> GetNameValueDictionary()
     {

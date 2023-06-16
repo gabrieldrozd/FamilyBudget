@@ -4,10 +4,9 @@ import type {DataEnvelope} from "@core/models/dataEnvelope";
 import type {IPaginatedList, IPaginationRequest} from "@core/models/pagination";
 import type {IUserBase} from "@core/models/user";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
-import {Role} from "@core/models/auth";
 
 const client = AxiosClient.initialize();
-const usersUrlSegment = "Users";
+const usersUrlSegment = "users";
 const key = "users";
 
 export const useUserApi = () => {

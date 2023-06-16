@@ -2,16 +2,17 @@ import {RegisterUserModalContent} from "@app/budget/components/RegisterUserModal
 import {useUserApi} from "@core/api/hooks/useUserApi";
 import {usePagination} from "@core/context/PaginationContextProvider";
 import type {IUserBase} from "@core/models/user";
-import {Button, Container, Flex, Modal, ScrollArea, Space, Table} from "@mantine/core";
+import {Button, Container, Flex, Group, Mark, Modal, ScrollArea, Space, Table, Title, Text, Select, Pagination} from "@mantine/core";
 import {useDisclosure} from "@mantine/hooks";
 import {LocalLoader} from "@shared/components/LocalLoader";
 import {useAuthState} from "@store/slices/auth/useAuthState";
 import {IconPlus, IconSortAscending, IconSortDescending} from "@tabler/icons-react";
 import type {ColumnDef, SortingState} from "@tanstack/react-table";
 import {createColumnHelper, flexRender, getCoreRowModel, getSortedRowModel, useReactTable} from "@tanstack/react-table";
-import {createRef, useState} from "react";
+import {createRef, useCallback, useEffect, useState} from "react";
 
 import classes from "./styles/UsersPage.module.scss";
+import {Paginator} from "@shared/components/Paginator";
 
 const columnsHelper = createColumnHelper<IUserBase>();
 const columns: ColumnDef<IUserBase, any>[] = [
@@ -69,7 +70,7 @@ export const UsersPage = () => {
 
     const pagination = usePagination();
     const userApi = useUserApi();
-    const {isLoading, data} = userApi.queries.browseUsers(pagination.model);
+    const {isLoading, data, refetch} = userApi.queries.browseUsers(pagination.model);
 
     const tableBodyRef = createRef<HTMLTableSectionElement>();
     const [sorting, setSorting] = useState<SortingState>([]);
@@ -82,6 +83,14 @@ export const UsersPage = () => {
         getCoreRowModel: getCoreRowModel(),
         getSortedRowModel: getSortedRowModel()
     });
+
+    const fetch = useCallback(async () => {
+        await refetch();
+    }, [pagination.model.pageIndex, pagination.model.pageSize, pagination.model.isAscending]);
+
+    useEffect(() => {
+        fetch().then();
+    }, []);
 
     if (isLoading) {
         return <LocalLoader loaderSize={100} />;
@@ -99,7 +108,7 @@ export const UsersPage = () => {
                 </Button>
             </Flex>
 
-            <Flex className={classes.tableContainer}>
+            <Flex className={classes.tableContainer} direction="column" align="stretch" justify="stretch">
                 <ScrollArea mah="100vh" type="hover" w="100%">
                     <Table className={classes.table}>
                         <thead className={classes.tableHead}>
@@ -145,6 +154,12 @@ export const UsersPage = () => {
                         </tbody>
                     </Table>
                 </ScrollArea>
+
+                <Paginator
+                    data={data!}
+                    pagination={pagination}
+                    refetch={refetch}
+                />
             </Flex>
         </Container>
     );
