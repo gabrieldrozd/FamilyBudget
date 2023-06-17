@@ -15,15 +15,16 @@ import {
     Group,
     Badge,
     Popover,
-    UnstyledButton
+    UnstyledButton, Center
 } from "@mantine/core";
 import {useDisclosure} from "@mantine/hooks";
 import {LocalLoader} from "@shared/components/LocalLoader";
 import {Paginator} from "@shared/components/Paginator";
-import {IconPlus} from "@tabler/icons-react";
+import {IconDots, IconPlus} from "@tabler/icons-react";
 import {AddIncomePopoverContent} from "@app/budget/components/AddIncomePopoverContent";
 import {AddExpensePopoverContent} from "@app/budget/components/AddExpensePopoverContent";
 import {colors} from "@shared/colors";
+import {BudgetPlanActions} from "@app/budget/components/BudgetPlanActions";
 
 export const BudgetPlansPage = () => {
     const [opened, {open, close}] = useDisclosure(false);
@@ -55,7 +56,7 @@ export const BudgetPlansPage = () => {
                     <>
                         <Grid gutter="xl" w="100%">
                             {data?.list?.map((plan) => (
-                                <Grid.Col key={plan.externalId} sm={6} xs={12}>
+                                <Grid.Col key={plan.externalId} md={6} xs={12}>
                                     <Card
                                         p="md"
                                         shadow="sm"
@@ -85,7 +86,9 @@ export const BudgetPlansPage = () => {
                                                             {income.name}: ${income.amount}
                                                         </Paper>
                                                     ))}
-                                                    {plan.incomes.length > 3 && <Text>...</Text>}
+                                                    <Center>
+                                                        {plan.incomes.length > 3 && (<IconDots />)}
+                                                    </Center>
                                                 </Grid.Col>
 
                                                 <Grid.Col span={6}>
@@ -94,80 +97,15 @@ export const BudgetPlansPage = () => {
                                                             {expense.name}: ${expense.amount}
                                                         </Paper>
                                                     ))}
-                                                    {plan.expenses.length > 3 && <Text>...</Text>}
+                                                    <Center>
+                                                        {plan.expenses.length > 3 && (<IconDots />)}
+                                                    </Center>
                                                 </Grid.Col>
                                             </Grid>
                                         </ScrollArea>
 
                                         <Group position="apart">
-                                            <Button color="red.6" size="sm" onClick={() => console.log()} style={{borderRadius: "15px"}}>
-                                                Remove
-                                            </Button>
-                                            <Group>
-                                                <Button.Group>
-                                                    <Popover
-                                                        width={200}
-                                                        position="bottom"
-                                                        withArrow
-                                                        shadow="xl"
-                                                        arrowSize={14}
-                                                        styles={{
-                                                            dropdown: {
-                                                                borderRadius: "20px",
-                                                                border: `2px solid ${colors.green500}`
-                                                            }
-                                                        }}
-                                                    >
-                                                        <Popover.Target>
-                                                            <Button
-                                                                color="green.6"
-                                                                size="sm"
-                                                                onClick={() => console.log()}
-                                                                style={{
-                                                                    borderTopLeftRadius: "15px",
-                                                                    borderBottomLeftRadius: "15px",
-                                                                }}
-                                                            >
-                                                                Add Income
-                                                            </Button>
-                                                        </Popover.Target>
-                                                        <Popover.Dropdown miw={500}>
-                                                            <AddIncomePopoverContent budgetPlanId={plan.externalId} />
-                                                        </Popover.Dropdown>
-                                                    </Popover>
-
-                                                    <Popover
-                                                        width={200}
-                                                        position="bottom"
-                                                        withArrow
-                                                        shadow="xl"
-                                                        arrowSize={14}
-                                                        styles={{
-                                                            dropdown: {
-                                                                borderRadius: "20px",
-                                                                border: `2px solid ${colors.amber500}`
-                                                            }
-                                                        }}
-                                                    >
-                                                        <Popover.Target>
-                                                            <Button
-                                                                color="amber.6"
-                                                                size="sm"
-                                                                onClick={() => console.log()}
-                                                                style={{
-                                                                    borderTopRightRadius: "15px",
-                                                                    borderBottomRightRadius: "15px",
-                                                                }}
-                                                            >
-                                                                Add Expense
-                                                            </Button>
-                                                        </Popover.Target>
-                                                        <Popover.Dropdown miw={500}>
-                                                            <AddExpensePopoverContent budgetPlanId={plan.externalId} />
-                                                        </Popover.Dropdown>
-                                                    </Popover>
-                                                </Button.Group>
-                                            </Group>
+                                            <BudgetPlanActions budgetPlanId={plan.externalId} />
                                         </Group>
                                     </Card>
                                 </Grid.Col>
