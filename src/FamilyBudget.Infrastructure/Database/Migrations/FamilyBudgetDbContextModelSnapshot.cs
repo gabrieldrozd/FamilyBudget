@@ -92,6 +92,76 @@ namespace FamilyBudget.Infrastructure.Database.Migrations
                     b.ToTable("SharedBudgets");
                 });
 
+            modelBuilder.Entity("FamilyBudget.Domain.Entities.MoneyFlow.Expense", b =>
+                {
+                    b.Property<Guid>("ExternalId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<decimal>("Amount")
+                        .HasPrecision(15, 2)
+                        .HasColumnType("numeric(15,2)");
+
+                    b.Property<Guid>("BudgetPlanId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("ExternalId");
+
+                    b.HasAlternateKey("Id");
+
+                    b.HasIndex("BudgetPlanId");
+
+                    b.ToTable("Expenses");
+                });
+
+            modelBuilder.Entity("FamilyBudget.Domain.Entities.MoneyFlow.Income", b =>
+                {
+                    b.Property<Guid>("ExternalId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<decimal>("Amount")
+                        .HasPrecision(15, 2)
+                        .HasColumnType("numeric(15,2)");
+
+                    b.Property<Guid>("BudgetPlanId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("ExternalId");
+
+                    b.HasAlternateKey("Id");
+
+                    b.HasIndex("BudgetPlanId");
+
+                    b.ToTable("Incomes");
+                });
+
             modelBuilder.Entity("FamilyBudget.Domain.Entities.User", b =>
                 {
                     b.Property<Guid>("ExternalId")
@@ -140,87 +210,7 @@ namespace FamilyBudget.Infrastructure.Database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsMany("FamilyBudget.Domain.Entities.MoneyFlow.Expense", "Expenses", b1 =>
-                        {
-                            b1.Property<Guid>("ExternalId")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("uuid");
-
-                            b1.Property<decimal>("Amount")
-                                .HasPrecision(15, 2)
-                                .HasColumnType("numeric(15,2)");
-
-                            b1.Property<Guid>("BudgetPlanId")
-                                .HasColumnType("uuid");
-
-                            b1.Property<DateTime>("Date")
-                                .HasColumnType("timestamp without time zone");
-
-                            b1.Property<int>("Id")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("integer");
-
-                            NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b1.Property<int>("Id"));
-
-                            b1.Property<string>("Name")
-                                .IsRequired()
-                                .HasColumnType("text");
-
-                            b1.HasKey("ExternalId");
-
-                            b1.HasIndex("BudgetPlanId");
-
-                            b1.ToTable("Expenses");
-
-                            b1.WithOwner("BudgetPlan")
-                                .HasForeignKey("BudgetPlanId");
-
-                            b1.Navigation("BudgetPlan");
-                        });
-
-                    b.OwnsMany("FamilyBudget.Domain.Entities.MoneyFlow.Income", "Incomes", b1 =>
-                        {
-                            b1.Property<Guid>("ExternalId")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("uuid");
-
-                            b1.Property<decimal>("Amount")
-                                .HasPrecision(15, 2)
-                                .HasColumnType("numeric(15,2)");
-
-                            b1.Property<Guid>("BudgetPlanId")
-                                .HasColumnType("uuid");
-
-                            b1.Property<DateTime>("Date")
-                                .HasColumnType("timestamp without time zone");
-
-                            b1.Property<int>("Id")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("integer");
-
-                            NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b1.Property<int>("Id"));
-
-                            b1.Property<string>("Name")
-                                .IsRequired()
-                                .HasColumnType("text");
-
-                            b1.HasKey("ExternalId");
-
-                            b1.HasIndex("BudgetPlanId");
-
-                            b1.ToTable("Incomes");
-
-                            b1.WithOwner("BudgetPlan")
-                                .HasForeignKey("BudgetPlanId");
-
-                            b1.Navigation("BudgetPlan");
-                        });
-
                     b.Navigation("Creator");
-
-                    b.Navigation("Expenses");
-
-                    b.Navigation("Incomes");
                 });
 
             modelBuilder.Entity("FamilyBudget.Domain.Entities.Budget.SharedBudget", b =>
@@ -242,8 +232,34 @@ namespace FamilyBudget.Infrastructure.Database.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("FamilyBudget.Domain.Entities.MoneyFlow.Expense", b =>
+                {
+                    b.HasOne("FamilyBudget.Domain.Entities.Budget.BudgetPlan", "BudgetPlan")
+                        .WithMany("Expenses")
+                        .HasForeignKey("BudgetPlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BudgetPlan");
+                });
+
+            modelBuilder.Entity("FamilyBudget.Domain.Entities.MoneyFlow.Income", b =>
+                {
+                    b.HasOne("FamilyBudget.Domain.Entities.Budget.BudgetPlan", "BudgetPlan")
+                        .WithMany("Incomes")
+                        .HasForeignKey("BudgetPlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BudgetPlan");
+                });
+
             modelBuilder.Entity("FamilyBudget.Domain.Entities.Budget.BudgetPlan", b =>
                 {
+                    b.Navigation("Expenses");
+
+                    b.Navigation("Incomes");
+
                     b.Navigation("SharedBudgets");
                 });
 

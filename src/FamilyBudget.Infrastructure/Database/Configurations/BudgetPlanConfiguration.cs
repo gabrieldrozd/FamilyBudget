@@ -25,42 +25,16 @@ public class BudgetPlanConfiguration : IEntityTypeConfiguration<BudgetPlan>
 
         builder.Ignore(x => x.Balance);
 
-        #region Incomes
+        builder
+            .HasMany(x => x.Expenses)
+            .WithOne(x => x.BudgetPlan)
+            .HasForeignKey(x => x.BudgetPlanId)
+            .OnDelete(DeleteBehavior.Cascade);
 
-        builder.OwnsMany(x => x.Incomes, income =>
-        {
-            income.HasKey(x => x.ExternalId);
-
-            income.Property(x => x.Name)
-                .IsRequired();
-
-            income.Property(x => x.Date)
-                .IsRequired();
-
-            income.Property(x => x.Amount)
-                .HasPrecision(15, 2)
-                .IsRequired();
-        });
-
-        #endregion
-
-        #region Expenses
-
-        builder.OwnsMany(x => x.Expenses, expense =>
-        {
-            expense.HasKey(x => x.ExternalId);
-
-            expense.Property(x => x.Name)
-                .IsRequired();
-
-            expense.Property(x => x.Date)
-                .IsRequired();
-
-            expense.Property(x => x.Amount)
-                .HasPrecision(15, 2)
-                .IsRequired();
-        });
-
-        #endregion
+        builder
+            .HasMany(x => x.Incomes)
+            .WithOne(x => x.BudgetPlan)
+            .HasForeignKey(x => x.BudgetPlanId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

@@ -50,12 +50,54 @@ export const useBudgetPlanApi = () => {
         onSuccess: async () => await queryClient.invalidateQueries([key, "browse"])
     });
 
+    const addExpense = useMutation({
+        mutationKey: [key, "expense", "add"],
+        mutationFn: async (payload: {
+            budgetPlanId: string;
+            expense: { name: string; date: Date; amount: number; }
+        }) => {
+            try {
+                appContext.setLoading(true);
+                return await client.post<IUserBase>(`${budgetPlanUrlSegment}/${payload.budgetPlanId}/expense/add`, payload.expense);
+            } catch (ex) {
+                console.log(ex);
+                appContext.setLoading(false);
+                throw ex;
+            } finally {
+                appContext.setLoading(false);
+            }
+        },
+        onSuccess: async () => await queryClient.invalidateQueries([key, "browse"])
+    });
+
+    const addIncome = useMutation({
+        mutationKey: [key, "income", "add"],
+        mutationFn: async (payload: {
+            budgetPlanId: string;
+            income: { name: string; date: Date; amount: number; }
+        }) => {
+            try {
+                appContext.setLoading(true);
+                return await client.post<IUserBase>(`${budgetPlanUrlSegment}/${payload.budgetPlanId}/income/add`, payload.income);
+            } catch (ex) {
+                console.log(ex);
+                appContext.setLoading(false);
+                throw ex;
+            } finally {
+                appContext.setLoading(false);
+            }
+        },
+        onSuccess: async () => await queryClient.invalidateQueries([key, "browse"])
+    });
+
     return {
         queries: {
             browseBudgetPlans
         },
         commands: {
-            createBudgetPlan
+            createBudgetPlan,
+            addExpense,
+            addIncome,
         }
     };
 };

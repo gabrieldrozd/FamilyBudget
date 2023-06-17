@@ -1,5 +1,5 @@
 using FamilyBudget.Application.DTO;
-using FamilyBudget.Application.Features.BudgetPlans.Queries;
+using FamilyBudget.Application.Features.Finances.BudgetPlans.Queries;
 using FamilyBudget.Application.Mappings;
 using FamilyBudget.Common.Abstractions.Communication;
 using FamilyBudget.Common.Api.Pagination;

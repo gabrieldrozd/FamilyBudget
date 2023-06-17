@@ -16,6 +16,19 @@ internal sealed class BudgetPlanRepository : BaseRepository<BudgetPlan>, IBudget
         _budgetPlans = context.BudgetPlans;
     }
 
+    public async Task<BudgetPlan> GetByIdAsync(Guid id)
+    {
+        var result = await _budgetPlans
+            .Where(x => x.ExternalId == id)
+            .Include(x => x.Incomes)
+            .Include(x => x.Expenses)
+            .AsSplitQuery()
+            .AsTracking()
+            .FirstOrDefaultAsync();
+
+        return result;
+    }
+
     public async Task<PaginatedList<BudgetPlan>> BrowseAsync(Pagination pagination)
     {
         var result = await _budgetPlans

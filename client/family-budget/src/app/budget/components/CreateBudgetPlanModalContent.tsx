@@ -1,7 +1,7 @@
 import {useBudgetPlanApi} from "@core/api/hooks/useBudgetPlanApi";
 import {Notify} from "@core/services/Notify";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {Button, Divider, Textarea, TextInput} from "@mantine/core";
+import {Button, Divider, Flex, Textarea, TextInput} from "@mantine/core";
 import {DatePickerInput} from "@mantine/dates";
 import {IconCalendar} from "@tabler/icons-react";
 import {Controller, useForm} from "react-hook-form";
@@ -125,15 +125,26 @@ export const CreateBudgetPlanModalContent = ({closeModal}: Props) => {
 
             <Divider variant="solid" my={20} color="gray.3" w="100%" />
 
-            <Button
-                w="100%"
-                size="md"
-                radius="md"
-                color="indigo.5"
-                onClick={onSubmit}
-            >
-                Create budget plan
-            </Button>
+            <Flex gap={20}>
+                <Button
+                    fullWidth
+                    size="md"
+                    radius="md"
+                    color="indigo.5"
+                    onClick={onSubmit}
+                >
+                    Create plan
+                </Button>
+                <Button
+                    fullWidth
+                    size="md"
+                    radius="md"
+                    color="amber.5"
+                    onClick={closeModal}
+                >
+                    Close modal
+                </Button>
+            </Flex>
         </>
     );
 };

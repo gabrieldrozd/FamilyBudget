@@ -7,7 +7,7 @@ using FamilyBudget.Domain.Interfaces.Auth;
 using FamilyBudget.Domain.Interfaces.Repositories;
 using FamilyBudget.Domain.Interfaces.Repositories.Base;
 
-namespace FamilyBudget.Application.Features.BudgetPlans.Commands.Handlers;
+namespace FamilyBudget.Application.Features.Finances.BudgetPlans.Commands.Handlers;
 
 internal sealed class CreateBudgetPlanHandler : ICommandHandler<CreateBudgetPlan>
 {

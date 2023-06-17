@@ -1,5 +1,5 @@
 using FamilyBudget.Application.DTO;
-using FamilyBudget.Application.Features.BudgetPlans.Commands;
+using FamilyBudget.Application.Features.Finances.BudgetPlans.Commands;
 using FamilyBudget.Common.Extensions;
 using FamilyBudget.Domain.Definitions;
 using FamilyBudget.Domain.Entities.Budget;

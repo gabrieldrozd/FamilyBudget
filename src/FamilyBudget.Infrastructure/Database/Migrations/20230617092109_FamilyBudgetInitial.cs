@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FamilyBudget.Infrastructure.Database.Migrations
 {
     /// <inheritdoc />
-    public partial class FamilyBudgetInit : Migration
+    public partial class FamilyBudgetInitial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -39,7 +39,6 @@ namespace FamilyBudget.Infrastructure.Database.Migrations
                     ExternalId = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
-                    Balance = table.Column<decimal>(type: "numeric(15,2)", precision: 15, scale: 2, nullable: false),
                     StartDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     EndDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
@@ -63,6 +62,7 @@ namespace FamilyBudget.Infrastructure.Database.Migrations
                 columns: table => new
                 {
                     ExternalId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
                     Date = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Amount = table.Column<decimal>(type: "numeric(15,2)", precision: 15, scale: 2, nullable: false),
                     BudgetPlanId = table.Column<Guid>(type: "uuid", nullable: false),
@@ -72,6 +72,7 @@ namespace FamilyBudget.Infrastructure.Database.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Expenses", x => x.ExternalId);
+                    table.UniqueConstraint("AK_Expenses_Id", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Expenses_BudgetPlans_BudgetPlanId",
                         column: x => x.BudgetPlanId,
@@ -85,6 +86,7 @@ namespace FamilyBudget.Infrastructure.Database.Migrations
                 columns: table => new
                 {
                     ExternalId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
                     Date = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Amount = table.Column<decimal>(type: "numeric(15,2)", precision: 15, scale: 2, nullable: false),
                     BudgetPlanId = table.Column<Guid>(type: "uuid", nullable: false),
@@ -94,6 +96,7 @@ namespace FamilyBudget.Infrastructure.Database.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Incomes", x => x.ExternalId);
+                    table.UniqueConstraint("AK_Incomes_Id", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Incomes_BudgetPlans_BudgetPlanId",
                         column: x => x.BudgetPlanId,
