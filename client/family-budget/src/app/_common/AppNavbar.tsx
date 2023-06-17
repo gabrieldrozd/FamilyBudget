@@ -1,16 +1,8 @@
-import {
-    Container,
-    Flex,
-    Group,
-    Header,
-    Paper, Space,
-    Text, Title,
-    UnstyledButton,
-} from "@mantine/core";
+import {Container, Flex, Header, Paper, Space, Text, UnstyledButton} from "@mantine/core";
 import {colors} from "@shared/colors";
 import {useAuthState} from "@store/slices/auth/useAuthState";
+import {IconX} from "@tabler/icons-react";
 import {Link, useLocation} from "react-router-dom";
-import {IconCircleOff, IconX} from "@tabler/icons-react";
 
 const navItems = [
     {title: "Budget", path: "/", role: ""},
@@ -24,7 +16,7 @@ export const AppNavbar = () => {
 
     return (
         <Header height={80} mb={20}>
-            <Container size="md">
+            <Container size="lg">
                 <Flex
                     direction="row"
                     justify="space-between"

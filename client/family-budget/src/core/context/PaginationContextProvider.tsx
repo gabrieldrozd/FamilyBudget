@@ -19,7 +19,7 @@ interface Props {
 export const PaginationContextProvider = ({children}: Props) => {
     const [pagination, setPagination] = useState<IPaginationRequest>({
         pageIndex: 1,
-        pageSize: 5,
+        pageSize: 6,
         isAscending: true,
     });
 

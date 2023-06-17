@@ -16,6 +16,9 @@ export const Paginator = (
 
     const handlePageSizeChange = async (size: string | null) => {
         if (size) {
+            // TODO: When PageSize changes to bigger one, and there is not enough items, it will show empty page
+            // It should go to the last page with items instead
+
             const newPageSize = parseInt(size);
             await pagination.setPageSize(newPageSize);
             await refetch();
@@ -45,8 +48,9 @@ export const Paginator = (
 
     return (
         <Group
-            mt={20}
             p={15}
+            mt={20}
+            w="100%"
             bg="indigo.2"
             position="apart"
             align="center"
@@ -77,14 +81,14 @@ export const Paginator = (
                         <Text fw={500}>Page size</Text>
                         <Space w={5} />
                         <Select
-                            w={80}
+                            w={100}
                             size="md"
                             variant="default"
                             value={pagination.model.pageSize.toString()}
                             data={[
-                                {value: "5", label: "5"},
-                                {value: "10", label: "10"},
-                                {value: "25", label: "25"},
+                                {value: "6", label: "6"},
+                                {value: "12", label: "12"},
+                                {value: "20", label: "20"},
                             ]}
                             onChange={value => handlePageSizeChange(value)}
                             styles={(theme) => ({

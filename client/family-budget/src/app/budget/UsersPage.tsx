@@ -2,9 +2,10 @@ import {RegisterUserModalContent} from "@app/budget/components/RegisterUserModal
 import {useUserApi} from "@core/api/hooks/useUserApi";
 import {usePagination} from "@core/context/PaginationContextProvider";
 import type {IUserBase} from "@core/models/user";
-import {Button, Container, Flex, Group, Mark, Modal, ScrollArea, Space, Table, Title, Text, Select, Pagination} from "@mantine/core";
+import {Button, Container, Flex, Modal, ScrollArea, Space, Table, Title} from "@mantine/core";
 import {useDisclosure} from "@mantine/hooks";
 import {LocalLoader} from "@shared/components/LocalLoader";
+import {Paginator} from "@shared/components/Paginator";
 import {useAuthState} from "@store/slices/auth/useAuthState";
 import {IconPlus, IconSortAscending, IconSortDescending} from "@tabler/icons-react";
 import type {ColumnDef, SortingState} from "@tanstack/react-table";
@@ -12,7 +13,6 @@ import {createColumnHelper, flexRender, getCoreRowModel, getSortedRowModel, useR
 import {createRef, useCallback, useEffect, useState} from "react";
 
 import classes from "./styles/UsersPage.module.scss";
-import {Paginator} from "@shared/components/Paginator";
 
 const columnsHelper = createColumnHelper<IUserBase>();
 const columns: ColumnDef<IUserBase, any>[] = [
@@ -102,7 +102,8 @@ export const UsersPage = () => {
                 <RegisterUserModalContent closeModal={close} />
             </Modal>
 
-            <Flex mb={20} justify="flex-end">
+            <Flex mb={20} justify="space-between">
+                <Title order={2}>Users</Title>
                 <Button color="indigo.5" variant="filled" onClick={open} rightIcon={<IconPlus />}>
                     Add User
                 </Button>
