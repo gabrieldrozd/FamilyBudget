@@ -3,4 +3,5 @@ export interface IExpense {
     name: string;
     date: Date;
     amount: number;
+    expenseCategory: string;
 }

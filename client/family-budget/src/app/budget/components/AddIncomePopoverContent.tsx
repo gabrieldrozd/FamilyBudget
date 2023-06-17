@@ -1,22 +1,26 @@
-import {incomeSelectStyles, incomeTextInputStyles} from "@app/budget/components/mantineStyles";
+import {expenseSelectStyles, incomeSelectStyles, incomeTextInputStyles} from "@app/budget/components/mantineStyles";
 import {useBudgetPlanApi} from "@core/api/hooks/useBudgetPlanApi";
 import {Notify} from "@core/services/Notify";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {Button, Grid, Mark, Select, TextInput, Title} from "@mantine/core";
-import {useForm} from "react-hook-form";
+import {Controller, useForm} from "react-hook-form";
 import type {SubmitErrorHandler, SubmitHandler} from "react-hook-form";
 import {z} from "zod";
 
 interface NewIncomeFormModel {
     name: string;
-    date: Date;
-    amount: number;
+    date: string;
+    amount: string;
+    incomeType: string;
 }
 
 const formSchema = z.object({
     name: z.string().min(3).max(100),
-    date: z.date(),
-    amount: z.number().min(0),
+    date: z.string(),
+    amount: z.string().min(0),
+    incomeType: z.enum([
+        "Salary", "Investment", "Gift", "Other"
+    ])
 });
 
 interface Props {
@@ -27,8 +31,9 @@ export const AddIncomePopoverContent = ({budgetPlanId}: Props) => {
     const form = useForm<NewIncomeFormModel>({
         defaultValues: {
             name: "",
-            date: new Date(),
-            amount: 0,
+            date: "",
+            amount: "0",
+            incomeType: "Salary",
         },
         resolver: zodResolver(formSchema),
     });
@@ -37,7 +42,15 @@ export const AddIncomePopoverContent = ({budgetPlanId}: Props) => {
     const addIncome = budgetPlanApi.commands.addIncome;
 
     const onValidSubmit: SubmitHandler<NewIncomeFormModel> = (data) => {
-        addIncome.mutate({budgetPlanId: budgetPlanId, income: data}, {
+        console.log(data);
+        addIncome.mutate({
+            budgetPlanId: budgetPlanId, income: {
+                name: data.name,
+                date: new Date(data.date),
+                amount: parseFloat(data.amount),
+                incomeType: data.incomeType
+            }
+        }, {
             onSuccess: () => Notify.success("Income added!")
         });
     };
@@ -96,30 +109,29 @@ export const AddIncomePopoverContent = ({budgetPlanId}: Props) => {
                     styles={incomeTextInputStyles}
                 />
 
-                {/*<Controller*/}
-                {/*    control={form.control}*/}
-                {/*    name="role"*/}
-                {/*    render={({field}) => (*/}
-                <Select
-                    size="md"
-                    radius="lg"
-                    label="Income category"
-                    placeholder="Pick one"
-                    variant="filled"
-                    data={[
-                        {value: "Salary", label: "Salary"},
-                        {value: "Investment", label: "Investment"},
-                        {value: "Bonus", label: "Bonus"},
-                        {value: "Gift", label: "Gift"},
-                        {value: "Other", label: "Other"},
-                    ]}
-                    required
-                    styles={incomeSelectStyles}
+                <Controller
+                    control={form.control}
+                    name="incomeType"
+                    render={({field}) => (
+                        <Select
+                            size="md"
+                            radius="lg"
+                            label="Income type"
+                            placeholder="Pick one"
+                            variant="filled"
+                            data={[
+                                {value: "Salary", label: "Salary"},
+                                {value: "Investment", label: "Investment"},
+                                {value: "Gift", label: "Gift"},
+                                {value: "Other", label: "Other"},
+                            ]}
+                            required
+                            {...field}
+                            error={form.formState.errors.incomeType?.message}
+                            styles={incomeSelectStyles}
+                        />
+                    )}
                 />
-                {/*{...field}*/}
-                {/*error={form.formState.errors.role?.message}*/}
-                {/*    )}*/}
-                {/*/>*/}
             </Grid.Col>
 
             <Grid.Col span={12}>

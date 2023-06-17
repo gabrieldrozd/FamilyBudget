@@ -29,7 +29,13 @@ internal sealed class AddExpenseHandler : ICommandHandler<AddExpense>
         if (budgetPlan is null) return Result.NotFound(nameof(BudgetPlan), request.BudgetPlanId);
 
         var expenseId = Guid.NewGuid();
-        var expense = Expense.Create(expenseId, request.Name, request.Date, request.Amount, budgetPlan.ExternalId);
+        var expense = Expense.Create(
+            expenseId,
+            request.Name,
+            request.Date,
+            request.Amount,
+            request.ExpenseCategory,
+            budgetPlan.ExternalId);
         budgetPlan.AddExpense(expense);
 
         _expenseRepository.Insert(expense);

@@ -1,5 +1,6 @@
 using FamilyBudget.Common.Domain.Primitives;
 using FamilyBudget.Domain.Entities.Budget;
+using FamilyBudget.Domain.ValueObjects;
 
 namespace FamilyBudget.Domain.Entities.MoneyFlow;
 
@@ -10,9 +11,7 @@ public class Income : Entity
     public string Name { get; set; }
     public DateTime Date { get; set; }
     public decimal Amount { get; set; }
-
-    // TODO: Create IncomeType enumeration
-    // public IncomeType Type { get; set; }
+    public IncomeType Type { get; set; }
 
     #region Relationships
 
@@ -29,11 +28,13 @@ public class Income : Entity
     {
     }
 
-    private Income(Guid externalId, string name, DateTime date, decimal amount, Guid budgetPlanId) : this(externalId)
+    private Income(Guid externalId, string name, DateTime date, decimal amount, IncomeType type, Guid budgetPlanId)
+        : this(externalId)
     {
         Name = name;
         Date = date;
         Amount = amount;
+        Type = type;
         BudgetPlanId = budgetPlanId;
     }
 
@@ -41,8 +42,11 @@ public class Income : Entity
 
     #region Static Methods
 
-    public static Income Create(Guid incomeId, string name, DateTime date, decimal amount, Guid budgetPlanId)
-        => new(incomeId, name, date, amount, budgetPlanId);
+    public static Income Create(Guid incomeId, string name, DateTime date, decimal amount, string incomeType, Guid budgetPlanId)
+    {
+        var type = IncomeType.FromName(incomeType);
+        return new Income(incomeId, name, date, amount, type, budgetPlanId);
+    }
 
     #endregion
 }

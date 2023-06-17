@@ -6,4 +6,5 @@ public class IncomeDto
     public string Name { get; set; }
     public DateTime Date { get; set; }
     public decimal Amount { get; set; }
+    public string IncomeType { get; set; }
 }

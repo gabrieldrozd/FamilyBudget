@@ -29,7 +29,13 @@ internal sealed class AddIncomeHandler : ICommandHandler<AddIncome>
         if (budgetPlan is null) return Result.NotFound(nameof(BudgetPlan), request.BudgetPlanId);
 
         var incomeId = Guid.NewGuid();
-        var income = Income.Create(incomeId, request.Name, request.Date, request.Amount, budgetPlan.ExternalId);
+        var income = Income.Create(
+            incomeId,
+            request.Name,
+            request.Date,
+            request.Amount,
+            request.IncomeType,
+            budgetPlan.ExternalId);
         budgetPlan.AddIncome(income);
 
         _incomeRepository.Insert(income);

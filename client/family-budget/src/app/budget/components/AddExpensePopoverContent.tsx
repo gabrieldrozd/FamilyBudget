@@ -2,23 +2,25 @@ import {useBudgetPlanApi} from "@core/api/hooks/useBudgetPlanApi";
 import {Notify} from "@core/services/Notify";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {Button, Grid, Mark, Select, TextInput, Title} from "@mantine/core";
-import {DatePickerInput} from "@mantine/dates";
-import {IconCalendar} from "@tabler/icons-react";
 import {Controller, useForm} from "react-hook-form";
 import type {SubmitErrorHandler, SubmitHandler} from "react-hook-form";
 import {z} from "zod";
-import {expenseSelectStyles, expenseTextInputStyles, incomeTextInputStyles} from "@app/budget/components/mantineStyles";
+import {expenseSelectStyles, expenseTextInputStyles} from "@app/budget/components/mantineStyles";
 
 interface NewExpenseFormModel {
     name: string;
     date: Date;
     amount: number;
+    expenseCategory: string;
 }
 
 const formSchema = z.object({
     name: z.string().min(3).max(100),
     date: z.date(),
     amount: z.number().min(0),
+    expenseCategory: z.enum([
+        "Food", "Housing", "Transportation", "Clothing", "Health Care", "Personal", "Education", "Entertainment", "Other"
+    ]),
 });
 
 interface Props {
@@ -31,6 +33,7 @@ export const AddExpensePopoverContent = ({budgetPlanId}: Props) => {
             name: "",
             date: new Date(),
             amount: 0,
+            expenseCategory: "Food",
         },
         resolver: zodResolver(formSchema),
     });
@@ -98,33 +101,34 @@ export const AddExpensePopoverContent = ({budgetPlanId}: Props) => {
                     styles={expenseTextInputStyles}
                 />
 
-                {/*<Controller*/}
-                {/*    control={form.control}*/}
-                {/*    name="role"*/}
-                {/*    render={({field}) => (*/}
-                <Select
-                    size="md"
-                    radius="lg"
-                    label="Expense category"
-                    placeholder="Pick one"
-                    variant="filled"
-                    data={[
-                        {value: "House", label: "House"},
-                        {value: "Utilities", label: "Utilities"},
-                        {value: "Entertainment", label: "Entertainment"},
-                        {value: "Health", label: "Health"},
-                        {value: "Car", label: "Car"},
-                        {value: "Food", label: "Food"},
-                        {value: "Clothes", label: "Clothes"},
-                        {value: "Other", label: "Other"},
-                    ]}
-                    required
-                    styles={expenseSelectStyles}
+                <Controller
+                    control={form.control}
+                    name="expenseCategory"
+                    render={({field}) => (
+                        <Select
+                            size="md"
+                            radius="lg"
+                            label="Expense category"
+                            placeholder="Pick one"
+                            variant="filled"
+                            data={[
+                                {value: "Food", label: "Food"},
+                                {value: "Housing", label: "Housing"},
+                                {value: "Transportation", label: "Transportation"},
+                                {value: "Clothing", label: "Clothing"},
+                                {value: "Health Care", label: "Health Care"},
+                                {value: "Personal", label: "Personal"},
+                                {value: "Education", label: "Education"},
+                                {value: "Entertainment", label: "Entertainment"},
+                                {value: "Other", label: "Other"},
+                            ]}
+                            required
+                            {...field}
+                            error={form.formState.errors.expenseCategory?.message}
+                            styles={expenseSelectStyles}
+                        />
+                    )}
                 />
-                {/*{...field}*/}
-                {/*error={form.formState.errors.role?.message}*/}
-                {/*    )}*/}
-                {/*/>*/}
             </Grid.Col>
 
             <Grid.Col span={12}>

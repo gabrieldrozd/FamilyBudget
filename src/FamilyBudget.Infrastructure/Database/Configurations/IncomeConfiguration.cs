@@ -1,5 +1,6 @@
 using FamilyBudget.Domain.Entities.Budget;
 using FamilyBudget.Domain.Entities.MoneyFlow;
+using FamilyBudget.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -20,6 +21,10 @@ public class IncomeConfiguration : IEntityTypeConfiguration<Income>
 
         builder.Property(x => x.Amount)
             .HasPrecision(15, 2)
+            .IsRequired();
+
+        builder.Property(x => x.Type)
+            .HasConversion(x => x.Value, x => IncomeType.FromValue(x))
             .IsRequired();
     }
 }

@@ -12,5 +12,6 @@ public static class IncomeMappings
             Name = model.Name,
             Date = model.Date,
             Amount = model.Amount,
+            IncomeType = model.Type.Name
         };
 }

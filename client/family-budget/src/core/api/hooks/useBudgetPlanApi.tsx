@@ -54,7 +54,7 @@ export const useBudgetPlanApi = () => {
         mutationKey: [key, "expense", "add"],
         mutationFn: async (payload: {
             budgetPlanId: string;
-            expense: { name: string; date: Date; amount: number; }
+            expense: { name: string; date: Date; amount: number; expenseCategory: string; }
         }) => {
             try {
                 appContext.setLoading(true);
@@ -74,7 +74,7 @@ export const useBudgetPlanApi = () => {
         mutationKey: [key, "income", "add"],
         mutationFn: async (payload: {
             budgetPlanId: string;
-            income: { name: string; date: Date; amount: number; }
+            income: { name: string; date: Date; amount: number; incomeType: string; }
         }) => {
             try {
                 appContext.setLoading(true);

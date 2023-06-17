@@ -12,5 +12,6 @@ public static class ExpenseMappings
             Name = model.Name,
             Date = model.Date,
             Amount = model.Amount,
+            ExpenseCategory = model.Category.Name
         };
 }

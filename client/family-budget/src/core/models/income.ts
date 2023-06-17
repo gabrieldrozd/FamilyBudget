@@ -3,4 +3,5 @@ export interface IIncome {
     name: string;
     date: Date;
     amount: number;
+    incomeType: string;
 }
