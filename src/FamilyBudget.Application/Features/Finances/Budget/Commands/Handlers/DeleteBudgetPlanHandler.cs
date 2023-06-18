@@ -1,4 +1,5 @@
 using FamilyBudget.Common.Abstractions.Communication;
+using FamilyBudget.Common.Domain.ValueObjects;
 using FamilyBudget.Common.Results;
 using FamilyBudget.Domain.Entities.Budget;
 using FamilyBudget.Domain.Interfaces.Auth;
@@ -28,7 +29,7 @@ public sealed class DeleteBudgetPlanHandler : ICommandHandler<DeleteBudgetPlan>
         var budgetPlan = await _budgetPlanRepository.GetByIdAsync(request.BudgetPlanId);
         if (budgetPlan is null) return Result.NotFound(nameof(BudgetPlan), request.BudgetPlanId);
 
-        if (budgetPlan.Creator.ExternalId != _userContext.UserId) return Result.Unauthorized();
+        if (_userContext.Role.Name != Role.Owner.Name) return Result.Unauthorized();
 
         _budgetPlanRepository.Remove(budgetPlan);
         var result = await _unitOfWork.CommitAsync();
