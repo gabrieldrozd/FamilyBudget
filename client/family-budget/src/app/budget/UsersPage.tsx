@@ -1,4 +1,4 @@
-import {RegisterUserModalContent} from "@app/budget/components/RegisterUserModalContent";
+import {RegisterUserModalContent} from "@app/budget/components/ModalContent/RegisterUserModalContent";
 import {useUserApi} from "@core/api/hooks/useUserApi";
 import {usePagination} from "@core/context/PaginationContextProvider";
 import type {IUserBase} from "@core/models/user";
@@ -97,8 +97,8 @@ export const UsersPage = () => {
     }
 
     return (
-        <Container w="100%" size="lg">
-            <Modal opened={opened} onClose={close} title="Add new user" centered>
+        <Container w="100%" size="xl">
+            <Modal opened={opened} onClose={close} title="Add new user" centered xOffset={0}>
                 <RegisterUserModalContent closeModal={close} />
             </Modal>
 

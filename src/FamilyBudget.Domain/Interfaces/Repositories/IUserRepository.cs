@@ -7,4 +7,8 @@ namespace FamilyBudget.Domain.Interfaces.Repositories;
 public interface IUserRepository : IBaseRepository<User>
 {
     Task<PaginatedList<User>> BrowseAsync(Pagination pagination);
+
+    Task<List<User>> GetByIds(Guid[] userIds);
+
+    Task<List<User>> GetAllExcept(Guid userId);
 }

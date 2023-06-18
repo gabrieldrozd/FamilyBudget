@@ -17,6 +17,7 @@ internal static class Extensions
         services.AddScoped<IBudgetPlanRepository, BudgetPlanRepository>();
         services.AddScoped<IExpenseRepository, ExpenseRepository>();
         services.AddScoped<IIncomeRepository, IncomeRepository>();
+        services.AddScoped<ISharedBudgetRepository, SharedBudgetRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
 
         return services;

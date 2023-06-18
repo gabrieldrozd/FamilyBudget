@@ -13,23 +13,23 @@ internal sealed class TokenProvider : ITokenProvider
 {
     private readonly SigningCredentials _signingCredentials;
     private readonly AuthOptions _options;
-    private readonly IClockProvider _clockProvider;
+    private readonly IClock _clock;
 
     public TokenProvider(
         AuthOptions options,
-        IClockProvider clockProvider)
+        IClock clock)
     {
         _signingCredentials = new SigningCredentials(
             new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.IssuerSigningKey)),
             SecurityAlgorithms.HmacSha256);
 
         _options = options;
-        _clockProvider = clockProvider;
+        _clock = clock;
     }
 
     public AccessToken CreateToken(Guid userId, string firstName, string lastName, string email, Role role)
     {
-        var expires = _clockProvider.Current().AddMinutes(_options.ExpiryInMinutes);
+        var expires = _clock.Current().AddMinutes(_options.ExpiryInMinutes);
 
         var claims = new List<Claim>
         {

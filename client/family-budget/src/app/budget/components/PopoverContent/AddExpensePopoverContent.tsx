@@ -1,3 +1,4 @@
+import {expenseSelectStyles, expenseTextInputStyles} from "@app/budget/components/mantineStyles";
 import {useBudgetPlanApi} from "@core/api/hooks/useBudgetPlanApi";
 import {Notify} from "@core/services/Notify";
 import {zodResolver} from "@hookform/resolvers/zod";
@@ -5,19 +6,18 @@ import {Button, Grid, Mark, Select, TextInput, Title} from "@mantine/core";
 import {Controller, useForm} from "react-hook-form";
 import type {SubmitErrorHandler, SubmitHandler} from "react-hook-form";
 import {z} from "zod";
-import {expenseSelectStyles, expenseTextInputStyles} from "@app/budget/components/mantineStyles";
 
 interface NewExpenseFormModel {
     name: string;
-    date: Date;
-    amount: number;
+    date: string;
+    amount: string;
     expenseCategory: string;
 }
 
 const formSchema = z.object({
     name: z.string().min(3).max(100),
-    date: z.date(),
-    amount: z.number().min(0),
+    date: z.string(),
+    amount: z.string().min(0),
     expenseCategory: z.enum([
         "Food", "Housing", "Transportation", "Clothing", "Health Care", "Personal", "Education", "Entertainment", "Other"
     ]),
@@ -31,8 +31,8 @@ export const AddExpensePopoverContent = ({budgetPlanId}: Props) => {
     const form = useForm<NewExpenseFormModel>({
         defaultValues: {
             name: "",
-            date: new Date(),
-            amount: 0,
+            date: "",
+            amount: "0",
             expenseCategory: "Food",
         },
         resolver: zodResolver(formSchema),
@@ -42,7 +42,15 @@ export const AddExpensePopoverContent = ({budgetPlanId}: Props) => {
     const addExpense = budgetPlanApi.commands.addExpense;
 
     const onValidSubmit: SubmitHandler<NewExpenseFormModel> = (data) => {
-        addExpense.mutate({budgetPlanId: budgetPlanId, expense: data}, {
+        addExpense.mutate({
+            budgetPlanId: budgetPlanId,
+            expense: {
+                name: data.name,
+                date: new Date(data.date),
+                amount: parseFloat(data.amount),
+                expenseCategory: data.expenseCategory
+            }
+        }, {
             onSuccess: () => Notify.success("Expense added!")
         });
     };

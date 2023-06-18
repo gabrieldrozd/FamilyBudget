@@ -30,4 +30,30 @@ internal sealed class UserRepository : BaseRepository<User>, IUserRepository
 
         return PaginatedList<User>.Create(pagination, result, count);
     }
+
+    public async Task<List<User>> GetByIds(Guid[] userIds)
+    {
+        var result = await _users
+            .Where(x => userIds.Contains(x.ExternalId))
+            .Include(x => x.BudgetPlans)
+            .Include(x => x.SharedBudgets)
+            .AsSplitQuery()
+            .AsNoTracking()
+            .ToListAsync();
+
+        return result;
+    }
+
+    public async Task<List<User>> GetAllExcept(Guid userId)
+    {
+        var result = await _users
+            .Where(x => !x.ExternalId.Equals(userId))
+            .Include(x => x.BudgetPlans)
+            .Include(x => x.SharedBudgets)
+            .AsSplitQuery()
+            .AsNoTracking()
+            .ToListAsync();
+
+        return result;
+    }
 }

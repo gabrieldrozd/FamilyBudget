@@ -1,6 +1,6 @@
 import {useAppContext} from "@core/context/ApplicationContext";
 import {ApplicationRouter} from "@core/routing/ApplicationRouter";
-import {Box, Flex, Loader, LoadingOverlay, Title} from "@mantine/core";
+import {Flex, Loader, LoadingOverlay, Title} from "@mantine/core";
 import {Notifications} from "@mantine/notifications";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {RouterProvider} from "react-router-dom";

@@ -7,6 +7,7 @@ import {UsersPage} from "@app/budget/UsersPage";
 import {PaginationContextProvider} from "@core/context/PaginationContextProvider";
 import {AuthorizedRoute} from "@core/routing/components/AuthorizedRoute";
 import {createBrowserRouter, createRoutesFromElements, Route} from "react-router-dom";
+import {BudgetPlanDetailsPage} from "@app/budget/BudgetPlanDetailsPage";
 
 export const ApplicationRouter = createBrowserRouter(
     createRoutesFromElements(
@@ -28,7 +29,18 @@ export const ApplicationRouter = createBrowserRouter(
                         </PaginationContextProvider>
                     }
                 />
-                <Route path="shared" element={<SharedBudgetsPage />} />
+
+                <Route path="/:budgetPlanId" element={<BudgetPlanDetailsPage />} />
+
+                <Route
+                    path="shared"
+                    element={
+                        <PaginationContextProvider>
+                            <SharedBudgetsPage />
+                        </PaginationContextProvider>
+                    }
+                />
+
                 <Route
                     path="users"
                     element={

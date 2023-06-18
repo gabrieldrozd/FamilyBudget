@@ -24,7 +24,7 @@ public static class Extensions
         services.AddSingleton<ExceptionMiddleware>();
 
         // Providers
-        services.AddSingleton<IClockProvider, ClockProvider>();
+        services.AddSingleton<IClock, Clock>();
         services.AddSingleton<ITokenProvider, TokenProvider>();
 
         // Services

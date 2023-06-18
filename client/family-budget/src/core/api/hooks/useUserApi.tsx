@@ -13,6 +13,20 @@ export const useUserApi = () => {
     const appContext = useAppContext();
     const queryClient = useQueryClient();
 
+    const allUsers = () => {
+        return useQuery({
+            queryKey: [key, "all"],
+            queryFn: () => {
+                appContext.setLoading(true);
+                const result = client.get<IUserBase[]>(`${usersUrlSegment}/all`);
+                appContext.setLoading(false);
+                return result;
+            },
+            select: (data: DataEnvelope<IUserBase[]>) => data.data as IUserBase[],
+            enabled: true,
+        });
+    };
+
     const browseUsers = (pagination: IPaginationRequest) => {
         return useQuery({
             queryKey: [key, "browse", pagination.pageIndex, pagination.pageSize, pagination.isAscending],
@@ -68,6 +82,7 @@ export const useUserApi = () => {
 
     return {
         queries: {
+            allUsers,
             browseUsers
         },
         commands: {

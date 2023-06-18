@@ -1,4 +1,4 @@
-import {expenseSelectStyles, incomeSelectStyles, incomeTextInputStyles} from "@app/budget/components/mantineStyles";
+import {incomeSelectStyles, incomeTextInputStyles} from "@app/budget/components/mantineStyles";
 import {useBudgetPlanApi} from "@core/api/hooks/useBudgetPlanApi";
 import {Notify} from "@core/services/Notify";
 import {zodResolver} from "@hookform/resolvers/zod";

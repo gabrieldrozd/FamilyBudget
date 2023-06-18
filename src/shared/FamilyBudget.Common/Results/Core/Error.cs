@@ -20,8 +20,8 @@ public record Error(string Name, string Message)
 
     internal static Error NotFound(string objectName, Guid id)
         => id.Equals(Guid.Empty)
-            ? Create("NotFound", $"{objectName.GetType().Name} was not found.")
-            : Create("NotFound", $"{objectName.GetType().Name} with: '{id:D}' was not found.");
+            ? Create("NotFound", $"{objectName} was not found.")
+            : Create("NotFound", $"{objectName} with: '{id:D}' was not found.");
 
     internal static Error DatabaseFailure()
         => Create("DatabaseFailure", "Database failed to process changes.");

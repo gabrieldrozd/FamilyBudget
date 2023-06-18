@@ -12,6 +12,14 @@ namespace FamilyBudget.Api.Controllers;
 [Route("api/users")]
 public class UsersController : BaseController
 {
+    [HttpGet("all")]
+    public async Task<IActionResult> GetAll(CancellationToken cancellationToken = default)
+    {
+        var query = new GetAllUsersExceptCurrent();
+        var result = await Sender.Send(query, cancellationToken);
+        return BuildEnvelope(result);
+    }
+
     [HttpPut("browse")]
     public async Task<IActionResult> Browse([FromBody] PaginationRequest pagination, CancellationToken cancellationToken = default)
     {

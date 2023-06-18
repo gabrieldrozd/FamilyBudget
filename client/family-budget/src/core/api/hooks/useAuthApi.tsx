@@ -18,14 +18,22 @@ export const useAuthApi = () => {
         return useQuery({
             queryKey: [key, "refreshToken"],
             queryFn: async () => {
-                appContext.setLoading(true);
-                const accessToken = await client.get<IAccessToken>(authUrlSegment);
-                authState.actions.refresh(accessToken.data);
-                appContext.setLoading(false);
-                return accessToken;
+                try {
+                    appContext.setLoading(true);
+                    const accessToken = await client.get<IAccessToken>(authUrlSegment);
+                    authState.actions.refresh(accessToken.data);
+                    appContext.setLoading(false);
+                    return accessToken;
+                } catch (ex) {
+                    console.log(ex);
+                    appContext.setLoading(false);
+                    throw ex;
+                } finally {
+                    appContext.setLoading(false);
+                }
             },
             select: (data: DataEnvelope<IAccessToken>) => data.data as IAccessToken,
-            enabled: false,
+            enabled: true,
         });
     };
 
