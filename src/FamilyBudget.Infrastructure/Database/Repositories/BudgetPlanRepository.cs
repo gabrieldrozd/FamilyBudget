@@ -38,6 +38,7 @@ internal sealed class BudgetPlanRepository : BaseRepository<BudgetPlan>, IBudget
             .Where(x => x.ExternalId == id)
             .Include(x => x.Incomes)
             .Include(x => x.Expenses)
+            .Include(x => x.Creator)
             .AsSplitQuery()
             .AsTracking()
             .FirstOrDefaultAsync();

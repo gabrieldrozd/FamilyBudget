@@ -13,18 +13,9 @@ interface Props {
 export const SharedBudgetActions = ({budgetPlanId}: Props) => {
     const navigate = useNavigate();
 
-    const budgetPlanApi = useBudgetPlanApi();
-    const removeBudgetPlan = budgetPlanApi.commands.removeBudgetPlan;
-
-    const handleRemoveBudgetPlan = () => {
-        removeBudgetPlan.mutate(budgetPlanId, {
-            onSuccess: () => Notify.success("Budget plan removed!")
-        });
-    };
-
     return (
         <>
-            <Group>
+            <Flex w="100%" gap={20}>
                 <Popover
                     width={200}
                     position="bottom"
@@ -34,107 +25,57 @@ export const SharedBudgetActions = ({budgetPlanId}: Props) => {
                     styles={{
                         dropdown: {
                             borderRadius: "20px",
-                            border: `2px solid ${colors.red400}`
+                            border: `2px solid ${colors.green600}`
                         }
                     }}
                 >
                     <Popover.Target>
                         <Button
-                            w={100}
-                            color="red.5"
+                            variant="light"
+                            color="green.7"
                             size="sm"
-                            style={{borderRadius: "15px"}}
+                            radius="lg"
+                            fullWidth
+                            onClick={() => console.log()}
                         >
-                            Remove
+                            Add Income
                         </Button>
                     </Popover.Target>
                     <Popover.Dropdown miw={500}>
-                        <Flex
-                            direction="column"
-                            justify="center"
-                            align="center"
-                        >
-                            <Text>Are you sure you want to remove this budget plan?</Text>
-                            <Button
-                                mt={20}
-                                color="red"
-                                radius="lg"
-                                onClick={handleRemoveBudgetPlan}
-                            >
-                                Yes, remove it
-                            </Button>
-                        </Flex>
+                        <AddIncomePopoverContent budgetPlanId={budgetPlanId} />
                     </Popover.Dropdown>
                 </Popover>
-            </Group>
 
-            <Group>
-                <Button.Group>
-                    <Popover
-                        width={200}
-                        position="bottom"
-                        withArrow
-                        shadow="xl"
-                        arrowSize={14}
-                        styles={{
-                            dropdown: {
-                                borderRadius: "20px",
-                                border: `2px solid ${colors.green600}`
-                            }
-                        }}
-                    >
-                        <Popover.Target>
-                            <Button
-                                variant="light"
-                                color="green.7"
-                                size="sm"
-                                onClick={() => console.log()}
-                                style={{
-                                    borderTopLeftRadius: "15px",
-                                    borderBottomLeftRadius: "15px",
-                                }}
-                            >
-                                Add Income
-                            </Button>
-                        </Popover.Target>
-                        <Popover.Dropdown miw={500}>
-                            <AddIncomePopoverContent budgetPlanId={budgetPlanId} />
-                        </Popover.Dropdown>
-                    </Popover>
-
-                    <Popover
-                        width={200}
-                        position="bottom"
-                        withArrow
-                        shadow="xl"
-                        arrowSize={14}
-                        styles={{
-                            dropdown: {
-                                borderRadius: "20px",
-                                border: `2px solid ${colors.amber600}`
-                            }
-                        }}
-                    >
-                        <Popover.Target>
-                            <Button
-                                variant="light"
-                                color="amber.7"
-                                size="sm"
-                                onClick={() => console.log()}
-                                style={{
-                                    borderTopRightRadius: "15px",
-                                    borderBottomRightRadius: "15px",
-                                }}
-                            >
-                                Add Expense
-                            </Button>
-                        </Popover.Target>
-                        <Popover.Dropdown miw={500}>
-                            <AddExpensePopoverContent budgetPlanId={budgetPlanId} />
-                        </Popover.Dropdown>
-                    </Popover>
-                </Button.Group>
-            </Group>
+                <Popover
+                    width={200}
+                    position="bottom"
+                    withArrow
+                    shadow="xl"
+                    arrowSize={14}
+                    styles={{
+                        dropdown: {
+                            borderRadius: "20px",
+                            border: `2px solid ${colors.amber600}`
+                        }
+                    }}
+                >
+                    <Popover.Target>
+                        <Button
+                            variant="light"
+                            color="amber.7"
+                            size="sm"
+                            radius="lg"
+                            fullWidth
+                            onClick={() => console.log()}
+                        >
+                            Add Expense
+                        </Button>
+                    </Popover.Target>
+                    <Popover.Dropdown miw={500}>
+                        <AddExpensePopoverContent budgetPlanId={budgetPlanId} />
+                    </Popover.Dropdown>
+                </Popover>
+            </Flex>
 
             <Button
                 size="md"

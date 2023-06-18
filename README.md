@@ -56,3 +56,23 @@ http://localhost:5000
 or
 https://localhost:5001
 ```
+
+To login, use the following credentials:
+
+```
+email: owner@email.com
+password: FamilyBudget23#
+```
+
+# Important Notes
+
+## Creating new users
+
+To create new users, you need to login as the owner user, and then navigate to the ```Users``` tab.<br/>
+In there, you can click the ```Add User``` button to create new user.
+
+## Creating new budget plans
+
+To create new budget plans, you need to login first, and then navigate to the ```Budget``` tab.<br/>
+In there, you can click the ```Add Budget Plan``` button to create new budget plan.
+
