@@ -4,7 +4,6 @@ import type {IBudgetPlan, IBudgetPlanDetails} from "@core/models/budgetPlan";
 import type {DataEnvelope} from "@core/models/dataEnvelope";
 import type {IPaginatedList, IPaginationRequest} from "@core/models/pagination";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
-import {IUserBase} from "@core/models/user";
 
 const client = AxiosClient.initialize();
 const budgetPlanUrlSegment = "budget-plans";
@@ -78,7 +77,11 @@ export const useBudgetPlanApi = () => {
                 appContext.setLoading(false);
             }
         },
-        onSuccess: async () => await queryClient.invalidateQueries([key, "browse"])
+        onSuccess: async () => {
+            await queryClient.invalidateQueries([key, "browse"]);
+            await queryClient.invalidateQueries([key, "details"]);
+            await queryClient.invalidateQueries(["shared-budgets", "browse"]);
+        }
     });
 
     const addExpense = useMutation({
@@ -98,7 +101,11 @@ export const useBudgetPlanApi = () => {
                 appContext.setLoading(false);
             }
         },
-        onSuccess: async () => await queryClient.invalidateQueries([key, "browse"])
+        onSuccess: async () => {
+            await queryClient.invalidateQueries([key, "browse"]);
+            await queryClient.invalidateQueries([key, "details"]);
+            await queryClient.invalidateQueries(["shared-budgets", "browse"]);
+        }
     });
 
     const removeExpense = useMutation({
@@ -121,6 +128,7 @@ export const useBudgetPlanApi = () => {
         onSuccess: async () => {
             await queryClient.invalidateQueries([key, "browse"]);
             await queryClient.invalidateQueries([key, "details"]);
+            await queryClient.invalidateQueries(["shared-budgets", "browse"]);
         }
     });
 
@@ -141,7 +149,11 @@ export const useBudgetPlanApi = () => {
                 appContext.setLoading(false);
             }
         },
-        onSuccess: async () => await queryClient.invalidateQueries([key, "browse"])
+        onSuccess: async () => {
+            await queryClient.invalidateQueries([key, "browse"]);
+            await queryClient.invalidateQueries([key, "details"]);
+            await queryClient.invalidateQueries(["shared-budgets", "browse"]);
+        }
     });
 
     const removeIncome = useMutation({
@@ -164,6 +176,7 @@ export const useBudgetPlanApi = () => {
         onSuccess: async () => {
             await queryClient.invalidateQueries([key, "browse"]);
             await queryClient.invalidateQueries([key, "details"]);
+            await queryClient.invalidateQueries(["shared-budgets", "browse"]);
         }
     });
 

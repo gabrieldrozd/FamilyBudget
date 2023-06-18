@@ -6,7 +6,7 @@ using FamilyBudget.Domain.Interfaces.Repositories.Base;
 
 namespace FamilyBudget.Application.Features.Finances.Budget.Commands.Handlers;
 
-internal sealed class DeleteBudgetPlanHandler : ICommandHandler<DeleteBudgetPlan>
+public sealed class DeleteBudgetPlanHandler : ICommandHandler<DeleteBudgetPlan>
 {
     private readonly IBudgetPlanRepository _budgetPlanRepository;
     private readonly IUnitOfWork _unitOfWork;

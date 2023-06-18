@@ -7,7 +7,7 @@ using FamilyBudget.Domain.Interfaces.Services;
 
 namespace FamilyBudget.Application.Features.Auth.Commands.Handlers;
 
-internal sealed class LoginUserHandler : ICommandHandler<LoginUser, AccessToken>
+public sealed class LoginUserHandler : ICommandHandler<LoginUser, AccessToken>
 {
     private readonly IUserRepository _userRepository;
     private readonly IIdentityService _identityService;

@@ -9,7 +9,7 @@ using FamilyBudget.Domain.Interfaces.Repositories;
 
 namespace FamilyBudget.Infrastructure.Queries.BudgetPlans;
 
-internal sealed class BrowseBudgetsSharedWithUserHandler : IQueryHandler<BrowseBudgetsSharedWithUser, PaginatedList<SharedBudgetDto>>
+public sealed class BrowseBudgetsSharedWithUserHandler : IQueryHandler<BrowseBudgetsSharedWithUser, PaginatedList<SharedBudgetDto>>
 {
     private readonly ISharedBudgetRepository _sharedBudgetRepository;
 

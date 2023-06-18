@@ -9,7 +9,7 @@ using FamilyBudget.Domain.Interfaces.Repositories.Base;
 
 namespace FamilyBudget.Application.Features.Finances.Budget.Commands.Handlers;
 
-internal sealed class ShareBudgetPlanHandler : ICommandHandler<ShareBudgetPlan>
+public sealed class ShareBudgetPlanHandler : ICommandHandler<ShareBudgetPlan>
 {
     private readonly IBudgetPlanRepository _budgetPlanRepository;
     private readonly ISharedBudgetRepository _sharedBudgetRepository;

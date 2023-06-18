@@ -8,7 +8,7 @@ using FamilyBudget.Domain.Interfaces.Repositories;
 
 namespace FamilyBudget.Infrastructure.Queries.Auth;
 
-internal sealed class GetCurrentUserHandler : IQueryHandler<GetCurrentUser, AccessToken>
+public sealed class GetCurrentUserHandler : IQueryHandler<GetCurrentUser, AccessToken>
 {
     private readonly IUserRepository _userRepository;
     private readonly ITokenProvider _tokenProvider;

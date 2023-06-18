@@ -61,7 +61,10 @@ export const useSharedBudgetApi = () => {
                 appContext.setLoading(false);
             }
         },
-        onSuccess: async () => await queryClient.invalidateQueries([key, "browse"])
+        onSuccess: async () => {
+            await queryClient.invalidateQueries([key, "browse"]);
+            await queryClient.invalidateQueries(["shared-budgets", "browse"]);
+        }
     });
 
     return {
