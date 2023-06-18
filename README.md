@@ -69,7 +69,8 @@ password: FamilyBudget23#
 ## Creating new users
 
 To create new users, you need to login as the owner user, and then navigate to the ```Users``` tab.<br/>
-In there, you can click the ```Add User``` button to create new user.
+In there, you can click the ```Add User``` button to create new user. <br/>
+To share the plan, at least one additional user except the owner is required.
 
 ## Creating new budget plans
 
