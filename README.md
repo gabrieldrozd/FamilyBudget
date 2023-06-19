@@ -70,7 +70,7 @@ password: FamilyBudget23#
 
 To create new users, you need to login as the owner user, and then navigate to the ```Users``` tab.<br/>
 In there, you can click the ```Add User``` button to create new user. <br/>
-To share the plan, at least one additional user except the owner is required.<br/>
+To share the plan, at least one additional user except the owner is required.<br/><br/>
 ❗For simplicity, each new user has the same password: 
 ```
 FamilyBudget23#
